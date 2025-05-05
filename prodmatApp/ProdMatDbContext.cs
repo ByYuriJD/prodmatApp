@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace prodmatApp.Models;
+namespace prodmatApp;
 
 public partial class ProdMatDbContext : DbContext
 {

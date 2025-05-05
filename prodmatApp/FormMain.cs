@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using prodmatApp.Models;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -6,9 +8,16 @@ namespace prodmatApp
 {
     public partial class FormMain : Form
     {
+        ProdMatDbContext? db;
         public FormMain()
         {
             InitializeComponent();
+
+            db = new ProdMatDbContext();
+            db.Materials.Load();
+            db.Products.Load();
+            db.WarehouseMaterials.Load();
+            db.WarehouseProducts.Load();
         }
 
         private void panelMaterials_Paint(object sender, PaintEventArgs e)

@@ -2,6 +2,8 @@
 
 static class GraphicsExtension
 {
+
+
     private static GraphicsPath GenerateRoundedRectangle(
         this Graphics graphics,
         RectangleF rectangle,
