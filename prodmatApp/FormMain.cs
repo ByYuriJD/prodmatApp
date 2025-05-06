@@ -8,7 +8,7 @@ namespace prodmatApp
 {
     public partial class FormMain : Form
     {
-        ProdMatDbContext? db;
+        protected ProdMatDbContext? db;
         public FormMain()
         {
             InitializeComponent();
@@ -48,6 +48,20 @@ namespace prodmatApp
 
             UpdateStyles();
         }
+        public void AddMaterial(Material material)
+        {
+            db.Materials.Add(material);
+            db.SaveChanges();
+        }
 
+        private void buttonMat_Click(object sender, EventArgs e)
+        {
+            FormMaterials formMaterials = new FormMaterials(this);
+            formMaterials.Show();
+        }
+        public List<Material> GetMaterials()
+        {
+            return db.Materials.ToList();
+        }
     }
 }

@@ -36,11 +36,15 @@
             panel3 = new Panel();
             trackBarColour = new TrackBar();
             labelColour = new Label();
+            panel4 = new Panel();
+            buttonOK = new Button();
+            buttonBack = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericStandartAmount).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarColour).BeginInit();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // textBoxMaterialName
@@ -121,23 +125,64 @@
             labelColour.Text = "Цвет";
             labelColour.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panel4
+            // 
+            panel4.Controls.Add(buttonOK);
+            panel4.Controls.Add(buttonBack);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(8, 118);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(4);
+            panel4.Size = new Size(378, 44);
+            panel4.TabIndex = 3;
+            // 
+            // buttonOK
+            // 
+            buttonOK.DialogResult = DialogResult.OK;
+            buttonOK.Dock = DockStyle.Fill;
+            buttonOK.Location = new Point(4, 4);
+            buttonOK.Margin = new Padding(8);
+            buttonOK.Name = "buttonOK";
+            buttonOK.Size = new Size(230, 36);
+            buttonOK.TabIndex = 1;
+            buttonOK.Text = "Ок";
+            buttonOK.UseVisualStyleBackColor = true;
+            // 
+            // buttonBack
+            // 
+            buttonBack.DialogResult = DialogResult.Cancel;
+            buttonBack.Dock = DockStyle.Right;
+            buttonBack.Location = new Point(234, 4);
+            buttonBack.Margin = new Padding(8);
+            buttonBack.Name = "buttonBack";
+            buttonBack.Size = new Size(140, 36);
+            buttonBack.TabIndex = 0;
+            buttonBack.Text = "Отмена";
+            buttonBack.UseVisualStyleBackColor = true;
+            // 
             // FormEditMaterials
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(394, 137);
+            ClientSize = new Size(394, 170);
+            Controls.Add(panel4);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(textBoxMaterialName);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormEditMaterials";
             Padding = new Padding(8);
+            ShowIcon = false;
             Text = "Form1";
+            TopMost = true;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numericStandartAmount).EndInit();
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarColour).EndInit();
+            panel4.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -151,5 +196,8 @@
         public TextBox textBoxMaterialName;
         public NumericUpDown numericStandartAmount;
         public TrackBar trackBarColour;
+        private Panel panel4;
+        private Button buttonOK;
+        private Button buttonBack;
     }
 }

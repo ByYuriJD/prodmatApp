@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             panelBottom = new Panel();
-            materialsFlowPanel = new FlowLayoutPanel();
             button1 = new Button();
+            materialsFlowPanel = new FlowLayoutPanel();
             panelBottom.SuspendLayout();
             SuspendLayout();
             // 
@@ -43,16 +43,7 @@
             panelBottom.Padding = new Padding(30, 10, 30, 10);
             panelBottom.Size = new Size(628, 70);
             panelBottom.TabIndex = 0;
-            panelBottom.Paint += this.panel1_Paint;
-            // 
-            // materialsFlowPanel
-            // 
-            materialsFlowPanel.AutoScroll = true;
-            materialsFlowPanel.Dock = DockStyle.Fill;
-            materialsFlowPanel.Location = new Point(0, 0);
-            materialsFlowPanel.Name = "materialsFlowPanel";
-            materialsFlowPanel.Size = new Size(628, 393);
-            materialsFlowPanel.TabIndex = 1;
+            panelBottom.Paint += panel1_Paint;
             // 
             // button1
             // 
@@ -63,6 +54,16 @@
             button1.TabIndex = 0;
             button1.Text = "Добавить материал";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // materialsFlowPanel
+            // 
+            materialsFlowPanel.AutoScroll = true;
+            materialsFlowPanel.Dock = DockStyle.Fill;
+            materialsFlowPanel.Location = new Point(0, 0);
+            materialsFlowPanel.Name = "materialsFlowPanel";
+            materialsFlowPanel.Size = new Size(628, 393);
+            materialsFlowPanel.TabIndex = 1;
             // 
             // FormMaterials
             // 
@@ -74,7 +75,7 @@
             Controls.Add(panelBottom);
             Name = "FormMaterials";
             Text = "Выбор материала";
-            Load += this.FormMaterials_Load;
+            Load += FormMaterials_Load;
             panelBottom.ResumeLayout(false);
             ResumeLayout(false);
         }

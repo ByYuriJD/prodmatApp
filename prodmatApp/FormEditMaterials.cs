@@ -38,6 +38,5 @@ namespace prodmatApp
         {
             trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(trackBarColour.Value,.4,1);
         }
-
     }
 }

@@ -14,35 +14,61 @@ namespace prodmatApp
 {
     public partial class MatProdPanel : UserControl
     {
-        Object matProdObject;
-        bool is_product;
+        Material material;
+        Product product;
         public MatProdPanel(Object matProdObject)
         {
             if (matProdObject is Material)
             {
-                matProdObject = (Material)matProdObject;
-                is_product = false;
+                material = (Material)matProdObject;
             }
             else if (matProdObject is Product)
             {
-                matProdObject = (Product)matProdObject;
-                is_product = true;
+                product = (Product)matProdObject;
             }
             InitializeComponent();
         }
 
         private void MatProdPanel_Load(object sender, EventArgs e)
         {
+            if (material != null)
+            {
+                labelName.Text = material.NameOfMaterial;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            }
+            else if (product != null)
+            {
+                labelName.Text = product.NameOfProduct;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            }
         }
         private void MatProdPanel_Paint(object sender, PaintEventArgs e)
         {
-
+            int hue;
+            if (material != null)
+            {
+                hue = material.Hue;
+            }
+            else if (product != null)
+            {
+                hue = product.Hue;
+            }
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.FillRoundedRectangle(new SolidBrush(System.Drawing.ColorTranslator.FromHtml("#EDF1FF")), 0, 0, this.Width, this.Height, 40);
+            g.FillRoundedRectangle(new SolidBrush(ColourFromHSV.ColorFromHSV(hue, .5, 1)),
+                0, 0, Width, Height, 40);
 
-            g.FillRoundedRectangle(new LinearGradientBrush(new PointF(0, 0), new PointF(0, this.Height), Color.White, System.Drawing.ColorTranslator.FromHtml("#EDF1FF")), 2, 2, this.Width - 4, this.Height - 4, 40);
+            g.FillRoundedRectangle(new LinearGradientBrush(new PointF(0, 0), new PointF(0, Height),
+                Color.White, ColourFromHSV.ColorFromHSV(hue, .2, 1)),
+                2, 2, this.Width - 4, this.Height - 4, 40);
             g.Dispose();
+        }
+
+        private void MatProdPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

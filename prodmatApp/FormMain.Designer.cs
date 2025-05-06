@@ -222,6 +222,7 @@
             buttonMat.TabIndex = 2;
             buttonMat.Text = "Выбор материала";
             buttonMat.UseVisualStyleBackColor = false;
+            buttonMat.Click += buttonMat_Click;
             // 
             // labelMaterials
             // 
