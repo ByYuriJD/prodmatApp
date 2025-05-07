@@ -14,10 +14,14 @@ namespace prodmatApp
 {
     public partial class MatProdPanel : UserControl
     {
-        Material material;
-        Product product;
-        public MatProdPanel(Object matProdObject)
+        private Material material;
+        private Product product;
+        private FormMain main;
+        public MatProdPanel(Object matProdObject, FormMain main)
         {
+            InitializeComponent();
+            this.main = main;
+
             if (matProdObject is Material)
             {
                 material = (Material)matProdObject;
@@ -26,7 +30,6 @@ namespace prodmatApp
             {
                 product = (Product)matProdObject;
             }
-            InitializeComponent();
         }
 
         private void MatProdPanel_Load(object sender, EventArgs e)
@@ -44,9 +47,25 @@ namespace prodmatApp
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
             }
         }
+        private void Update()
+        {
+            if (material != null)
+            {
+                labelName.Text = material.NameOfMaterial;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            }
+            else if (product != null)
+            {
+                labelName.Text = product.NameOfProduct;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            }
+            UpdateStyles();
+        }
         private void MatProdPanel_Paint(object sender, PaintEventArgs e)
         {
-            int hue;
+            int hue = 0;
             if (material != null)
             {
                 hue = material.Hue;
@@ -68,7 +87,9 @@ namespace prodmatApp
 
         private void MatProdPanel_MouseClick(object sender, MouseEventArgs e)
         {
-
+            FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
+            formSelectedMaterial.ShowDialog();
+            Update();
         }
     }
 }

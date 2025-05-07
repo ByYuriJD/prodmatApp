@@ -1,6 +1,6 @@
 ﻿namespace prodmatApp
 {
-    partial class FormEditMaterials
+    partial class FormEditMaterial
     {
         /// <summary>
         /// Required designer variable.
@@ -71,6 +71,7 @@
             // 
             numericStandartAmount.Dock = DockStyle.Fill;
             numericStandartAmount.Location = new Point(4, 8);
+            numericStandartAmount.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
             numericStandartAmount.Name = "numericStandartAmount";
             numericStandartAmount.Size = new Size(187, 27);
             numericStandartAmount.TabIndex = 1;
@@ -160,7 +161,7 @@
             buttonBack.Text = "Отмена";
             buttonBack.UseVisualStyleBackColor = true;
             // 
-            // FormEditMaterials
+            // FormEditMaterial
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -171,7 +172,7 @@
             Controls.Add(textBoxMaterialName);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormEditMaterials";
+            Name = "FormEditMaterial";
             Padding = new Padding(8);
             ShowIcon = false;
             Text = "Form1";

@@ -15,18 +15,23 @@ namespace prodmatApp
 {
     public partial class FormMaterials : Form
     {
-        FormMain formMain;
-        public FormMaterials(FormMain formMain)
+        FormMain main;
+        public FormMaterials(FormMain main)
         {
             InitializeComponent();
-            this.formMain = formMain;
+            this.main = main;
         }
         private void FormMaterials_Load(object sender, EventArgs e)
         {
-            foreach (Material material in formMain.GetMaterials())
+            Update();
+        }
+        private void Update()
+        {
+            foreach (Material material in main.GetMaterials())
             {
-                MatProdPanel matProdPanel = new MatProdPanel(material);
+                MatProdPanel matProdPanel = new MatProdPanel(material, main);
                 materialsFlowPanel.Controls.Add(matProdPanel);
+                
             }
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -35,7 +40,7 @@ namespace prodmatApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FormEditMaterials formEditMaterials = new FormEditMaterials();
+            FormEditMaterial formEditMaterials = new FormEditMaterial();
             if (formEditMaterials.ShowDialog() == DialogResult.OK)
             {
                 Material newMaterial = new Material
@@ -44,8 +49,9 @@ namespace prodmatApp
                     Hue = (short)formEditMaterials.trackBarColour.Value,
                     AutoAmount = (int)formEditMaterials.numericStandartAmount.Value
                 };
-                formMain.AddMaterial(newMaterial);
+                main.AddDB(newMaterial);
             }
+            Update();
 
         }
     }

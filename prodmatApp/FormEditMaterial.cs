@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace prodmatApp
 {
-    public partial class FormEditMaterials : Form
+    public partial class FormEditMaterial : Form
     {
         Material material;
-        public FormEditMaterials(Material material = null)
+        public FormEditMaterial(Material material = null)
         {
             InitializeComponent();
             if (material == null)

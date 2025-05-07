@@ -45,12 +45,26 @@ namespace prodmatApp
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-
             UpdateStyles();
         }
-        public void AddMaterial(Material material)
+        public void AddDB(Material material)
         {
             db.Materials.Add(material);
+            db.SaveChanges();
+        }
+        public void UpdateDB(Material material)
+        {
+            db.Materials.Update(material);
+            db.SaveChanges();
+        }
+        public void AddDB(Product product)
+        {
+            db.Products.Add(product);
+            db.SaveChanges();
+        }
+        public void UpdateDB(Product product)
+        {
+            db.Products.Update(product);
             db.SaveChanges();
         }
 
@@ -62,6 +76,10 @@ namespace prodmatApp
         public List<Material> GetMaterials()
         {
             return db.Materials.ToList();
+        }
+        public List<Product> GetProducts()
+        {
+            return db.Products.ToList();
         }
     }
 }
