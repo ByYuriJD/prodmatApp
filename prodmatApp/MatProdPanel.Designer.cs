@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelName = new Label();
+            buttonName = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             buttonUse = new Button();
             buttonAdd = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // labelName
+            // buttonName
             // 
-            labelName.Dock = DockStyle.Top;
-            labelName.Location = new Point(8, 8);
-            labelName.Name = "labelName";
-            labelName.Size = new Size(185, 35);
-            labelName.TabIndex = 0;
-            labelName.Text = "label1";
-            labelName.TextAlign = ContentAlignment.MiddleCenter;
-            labelName.MouseClick += MatProdPanel_MouseClick;
+            buttonName.Dock = DockStyle.Top;
+            buttonName.Location = new Point(8, 8);
+            buttonName.Name = "buttonName";
+            buttonName.Size = new Size(185, 44);
+            buttonName.TabIndex = 2;
+            buttonName.Text = "button1";
+            buttonName.UseVisualStyleBackColor = true;
+            buttonName.Click += buttonName_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -54,14 +54,13 @@
             tableLayoutPanel1.Controls.Add(buttonUse, 1, 0);
             tableLayoutPanel1.Controls.Add(buttonAdd, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(8, 43);
+            tableLayoutPanel1.Location = new Point(8, 52);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(12, 6, 12, 6);
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(185, 61);
-            tableLayoutPanel1.TabIndex = 1;
-            tableLayoutPanel1.MouseClick += MatProdPanel_MouseClick;
+            tableLayoutPanel1.Size = new Size(185, 52);
+            tableLayoutPanel1.TabIndex = 3;
             // 
             // buttonUse
             // 
@@ -69,10 +68,11 @@
             buttonUse.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonUse.Location = new Point(95, 9);
             buttonUse.Name = "buttonUse";
-            buttonUse.Size = new Size(75, 43);
+            buttonUse.Size = new Size(75, 34);
             buttonUse.TabIndex = 1;
             buttonUse.Text = "-";
             buttonUse.UseVisualStyleBackColor = true;
+            buttonUse.Click += buttonUse_Click;
             // 
             // buttonAdd
             // 
@@ -80,10 +80,11 @@
             buttonAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonAdd.Location = new Point(15, 9);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(74, 43);
+            buttonAdd.Size = new Size(74, 34);
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "+";
             buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
             // 
             // MatProdPanel
             // 
@@ -91,7 +92,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             Controls.Add(tableLayoutPanel1);
-            Controls.Add(labelName);
+            Controls.Add(buttonName);
             Name = "MatProdPanel";
             Padding = new Padding(8);
             Size = new Size(201, 112);
@@ -104,9 +105,9 @@
 
         #endregion
 
-        private Label labelName;
+        private Button buttonName;
         private TableLayoutPanel tableLayoutPanel1;
-        private Button buttonAdd;
         private Button buttonUse;
+        private Button buttonAdd;
     }
 }

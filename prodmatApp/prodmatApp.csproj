@@ -9,14 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Material.cs" />
-    <Compile Remove="ProdMatDbContext.cs" />
-    <Compile Remove="Product.cs" />
-    <Compile Remove="WarehouseMaterial.cs" />
-    <Compile Remove="WarehouseProduct.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="rainbow50100.png" />
   </ItemGroup>
 

@@ -7,7 +7,7 @@ public partial class WarehouseProduct
 {
     public int Id { get; set; }
 
-    public int IdProduct { get; set; }
+    public int? IdProduct { get; set; }
 
     public bool IsAdded { get; set; }
 
@@ -17,7 +17,9 @@ public partial class WarehouseProduct
 
     public bool IsTemplateOnly { get; set; }
 
-    public virtual Product IdProductNavigation { get; set; } = null!;
+    public DateOnly? DateOfAddition { get; set; }
+
+    public virtual Product? IdProductNavigation { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 

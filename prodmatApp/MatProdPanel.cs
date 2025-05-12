@@ -1,5 +1,4 @@
-﻿using prodmatApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using prodmatApp.Models;
+using prodmatApp.ProductForms;
 
 namespace prodmatApp
 {
@@ -36,28 +37,28 @@ namespace prodmatApp
         {
             if (material != null)
             {
-                labelName.Text = material.NameOfMaterial;
+                buttonName.Text = material.NameOfMaterial;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
             }
             else if (product != null)
             {
-                labelName.Text = product.NameOfProduct;
+                buttonName.Text = product.NameOfProduct;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
             }
         }
-        private void Update()
+        private void warehouseMaterialUpdate()
         {
             if (material != null)
             {
-                labelName.Text = material.NameOfMaterial;
+                buttonName.Text = material.NameOfMaterial;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
             }
             else if (product != null)
             {
-                labelName.Text = product.NameOfProduct;
+                buttonName.Text = product.NameOfProduct;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
             }
@@ -87,9 +88,101 @@ namespace prodmatApp
 
         private void MatProdPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
-            formSelectedMaterial.ShowDialog();
-            Update();
+        }
+
+        private void buttonName_Click(object sender, EventArgs e)
+        {
+            if (material != null)
+            {
+                FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
+                formSelectedMaterial.ShowDialog();
+                Update();
+            }
+            else if (product != null)
+            {
+                FormSelectedProduct formSelectedProduct = new FormSelectedProduct(product, main);
+                formSelectedProduct.ShowDialog();
+                Update();
+            }
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            if (material != null)
+            {
+
+                WarehouseMaterial warehouseMaterial = new WarehouseMaterial
+                {
+                    IdMaterial = material.Id,
+                    DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                    IsAdded = true,
+                    Amount = (int)material.AutoAmount,
+                    IsCanceled = false
+                };
+                main.AddDB(warehouseMaterial);
+            }
+            else if (product != null)
+            {
+                FormProductCreation formProductCreation = new FormProductCreation(product, main);
+                if (formProductCreation.ShowDialog() == DialogResult.OK)
+                {
+                    main.AddDB(new WarehouseProduct
+                    {
+                        Amount = (int)formProductCreation.numericUpDown1.Value,
+                        DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                        IsAdded = true,
+                        IdProduct = product.Id,
+                        IsCanceled = false
+                    });
+                    WarehouseProduct warehouseProduct = main.GetLastWarehouseProduct(true);
+
+                    foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
+                    {
+                        main.AddDB(new WarehouseMaterial
+                        {
+                            DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                            Amount = (int)materialPanel.numericUpDownAmount.Value,
+                            IsAdded = false,
+                            IsCanceled = false,
+                            IsMultipliedByProduct = materialPanel.checkBoxMultiply.Checked,
+                            IdMaterial = materialPanel.material.Id,
+                            IdAddedProduct = warehouseProduct.Id
+                        });
+                    }
+                }
+            }
+        }
+
+        private void buttonUse_Click(object sender, EventArgs e)
+        {
+            if (material != null)
+            {
+                FormUseMaterial formUseMaterial = new FormUseMaterial(material, main);
+                if (formUseMaterial.ShowDialog() == DialogResult.OK)
+                {
+                    main.AddDB(new WarehouseMaterial
+                    {
+                        IdMaterial = material.Id,
+                        DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                        IsAdded = false,
+                        Amount = (int)formUseMaterial.numericUpDown1.Value,
+                        IsCanceled = false
+                    });
+                }
+            }
+            else if (product != null)
+            {
+
+                WarehouseProduct warehouseProduct = new WarehouseProduct
+                {
+                    IdProduct = product.Id,
+                    DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                    IsAdded = false,
+                    Amount = (int)1,
+                    IsCanceled = false
+                };
+                main.AddDB(warehouseProduct);
+            }
         }
     }
 }

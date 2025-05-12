@@ -1,5 +1,4 @@
-﻿using prodmatApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using prodmatApp.Models;
 
 namespace prodmatApp
 {
     public partial class FormEditMaterial : Form
     {
-        Material material;
+        private Material material;
         public FormEditMaterial(Material material = null)
         {
             InitializeComponent();

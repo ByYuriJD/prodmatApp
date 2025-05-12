@@ -67,12 +67,27 @@ namespace prodmatApp
             db.Products.Update(product);
             db.SaveChanges();
         }
-
-        private void buttonMat_Click(object sender, EventArgs e)
+        public void AddDB(WarehouseMaterial warehouseMaterial)
         {
-            FormMaterials formMaterials = new FormMaterials(this);
-            formMaterials.Show();
+            db.WarehouseMaterials.Add(warehouseMaterial);
+            db.SaveChanges();
         }
+        public void UpdateDB(WarehouseMaterial warehouseMaterial)
+        {
+            db.WarehouseMaterials.Update(warehouseMaterial);
+            db.SaveChanges();
+        }
+        public void AddDB(WarehouseProduct warehouseProduct)
+        {
+            db.WarehouseProducts.Add(warehouseProduct);
+            db.SaveChanges();
+        }
+        public void UpdateDB(WarehouseProduct warehouseProduct)
+        {
+            db.WarehouseProducts.Update(warehouseProduct);
+            db.SaveChanges();
+        }
+
         public List<Material> GetMaterials()
         {
             return db.Materials.ToList();
@@ -80,6 +95,43 @@ namespace prodmatApp
         public List<Product> GetProducts()
         {
             return db.Products.ToList();
+        }
+        public WarehouseProduct GetLastWarehouseProduct(bool? added)
+        {
+            return db.WarehouseProducts.Where(e => added == null || added == false ||
+                e.IsAdded && !e.IsCanceled).OrderByDescending(e => e.Id).First();
+        }
+        public WarehouseMaterial GetLastWarehouseMaterial(bool? added, bool noProduct)
+        {
+
+            return db.WarehouseMaterials.Where(e => added == null || added == false || e.IsAdded && !e.IsCanceled
+                && !noProduct || e.IdAddedProduct == null).OrderByDescending(e => e.Id).First();
+        }
+        private void buttonMat_Click(object sender, EventArgs e)
+        {
+            FormMaterials formMaterials = new FormMaterials(this);
+            formMaterials.ShowDialog();
+        }
+        private void buttonProduct_Click(object sender, EventArgs e)
+        {
+            FormProduct formProduct = new FormProduct(this);
+            formProduct.ShowDialog();
+        }
+
+        private void buttonLastMat_Click(object sender, EventArgs e)
+        {
+            if (db.Materials.Count() == 0) return;
+            FormSelectedMaterial formSelectedMaterial = new
+                FormSelectedMaterial(GetLastWarehouseMaterial(null, true).IdMaterialNavigation, this);
+            formSelectedMaterial.ShowDialog();
+        }
+
+        private void buttonLastProduct_Click(object sender, EventArgs e)
+        {
+            if (db.Materials.Count() == 0) return;
+            FormSelectedProduct formSelectedProduct = new 
+                FormSelectedProduct(GetLastWarehouseProduct(null).IdProductNavigation, this);
+            formSelectedProduct.ShowDialog();
         }
     }
 }

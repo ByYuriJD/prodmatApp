@@ -139,6 +139,7 @@
             buttonLastProduct.TabIndex = 3;
             buttonLastProduct.Text = "Последняя используемая продукция";
             buttonLastProduct.UseVisualStyleBackColor = false;
+            buttonLastProduct.Click += buttonLastProduct_Click;
             // 
             // buttonProduct
             // 
@@ -154,6 +155,7 @@
             buttonProduct.TabIndex = 2;
             buttonProduct.Text = "Выбор продукции";
             buttonProduct.UseVisualStyleBackColor = false;
+            buttonProduct.Click += buttonProduct_Click;
             // 
             // label1
             // 
@@ -209,6 +211,7 @@
             buttonLastMat.TabIndex = 3;
             buttonLastMat.Text = "Последний используемый материал";
             buttonLastMat.UseVisualStyleBackColor = false;
+            buttonLastMat.Click += buttonLastMat_Click;
             // 
             // buttonMat
             // 

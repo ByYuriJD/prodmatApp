@@ -66,6 +66,7 @@ public partial class ProdMatDbContext : DbContext
             entity.ToTable("Warehouse_Materials");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DateOfAddition).HasColumnName("dateOfAddition");
             entity.Property(e => e.IdAddedProduct).HasColumnName("idAddedProduct");
             entity.Property(e => e.IdMaterial).HasColumnName("idMaterial");
             entity.Property(e => e.IsAdded).HasColumnName("isAdded");
@@ -92,6 +93,7 @@ public partial class ProdMatDbContext : DbContext
                 .HasDefaultValueSql("nextval('\"WareHouse_Products_id_seq\"'::regclass)")
                 .HasColumnName("id");
             entity.Property(e => e.Amount).HasColumnName("amount");
+            entity.Property(e => e.DateOfAddition).HasColumnName("dateOfAddition");
             entity.Property(e => e.IdProduct).HasColumnName("idProduct");
             entity.Property(e => e.IsAdded)
                 .HasDefaultValue(true)
@@ -105,7 +107,6 @@ public partial class ProdMatDbContext : DbContext
 
             entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.WarehouseProducts)
                 .HasForeignKey(d => d.IdProduct)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_warehouse_products");
         });
 

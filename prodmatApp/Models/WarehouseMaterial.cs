@@ -19,6 +19,8 @@ public partial class WarehouseMaterial
 
     public bool IsCanceled { get; set; }
 
+    public DateOnly? DateOfAddition { get; set; }
+
     public virtual WarehouseProduct? IdAddedProductNavigation { get; set; }
 
     public virtual Material IdMaterialNavigation { get; set; } = null!;

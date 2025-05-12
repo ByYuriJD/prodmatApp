@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             panelBottom = new Panel();
-            button1 = new Button();
+            buttonAdd = new Button();
             materialsFlowPanel = new FlowLayoutPanel();
             panelBottom.SuspendLayout();
             SuspendLayout();
             // 
             // panelBottom
             // 
-            panelBottom.Controls.Add(button1);
+            panelBottom.Controls.Add(buttonAdd);
             panelBottom.Dock = DockStyle.Bottom;
             panelBottom.Location = new Point(0, 393);
             panelBottom.Name = "panelBottom";
@@ -45,16 +45,16 @@
             panelBottom.TabIndex = 0;
             panelBottom.Paint += panel1_Paint;
             // 
-            // button1
+            // buttonAdd
             // 
-            button1.Dock = DockStyle.Fill;
-            button1.Location = new Point(30, 10);
-            button1.Name = "button1";
-            button1.Size = new Size(568, 50);
-            button1.TabIndex = 0;
-            button1.Text = "Добавить материал";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonAdd.Dock = DockStyle.Fill;
+            buttonAdd.Location = new Point(30, 10);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(568, 50);
+            buttonAdd.TabIndex = 0;
+            buttonAdd.Text = "Добавить материал";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += button1_Click;
             // 
             // materialsFlowPanel
             // 
@@ -84,6 +84,6 @@
 
         private Panel panelBottom;
         private FlowLayoutPanel materialsFlowPanel;
-        private Button button1;
+        private Button buttonAdd;
     }
 }
