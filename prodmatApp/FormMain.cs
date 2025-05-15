@@ -6,9 +6,14 @@ using System.Windows.Forms;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Главная форма для работы с материалами и продукцией
+    /// </summary>
     public partial class FormMain : Form
     {
-        protected ProdMatDbContext? db;
+        private ProdMatDbContext? db;
+
+        // Конструктор
         public FormMain()
         {
             InitializeComponent();
@@ -19,7 +24,13 @@ namespace prodmatApp
             db.WarehouseMaterials.Load();
             db.WarehouseProducts.Load();
         }
-
+        // Деструктор
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            db.Dispose();
+            db = null;
+        }
+        // Вид панели материалов
         private void panelMaterials_Paint(object sender, PaintEventArgs e)
         {
             base.DoubleBuffered = true;
@@ -33,6 +44,7 @@ namespace prodmatApp
 
         }
 
+        // Вид панели продукции
         private void panelProduct_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -43,95 +55,171 @@ namespace prodmatApp
             g.Dispose();
         }
 
+        // Обнавление стилей при изменении размера формы
         private void Form1_Resize(object sender, EventArgs e)
         {
             UpdateStyles();
         }
+
+        // Добавление материала в БД
         public void AddDB(Material material)
         {
             db.Materials.Add(material);
             db.SaveChanges();
         }
+        // Удаление материала из БД
+        public void RemoveDB(Material material)
+        {
+            db.Remove(material);
+            db.SaveChanges();
+        }
+        // Обновление материала в БД
         public void UpdateDB(Material material)
         {
             db.Materials.Update(material);
             db.SaveChanges();
         }
+        // Добавление продукции в БД
         public void AddDB(Product product)
         {
             db.Products.Add(product);
             db.SaveChanges();
         }
+        // Удаление продукции из БД
+        public void RemoveDB(Product product)
+        {
+            db.Remove(product);
+            db.SaveChanges();
+        }
+        // Обновление продукции в БД
         public void UpdateDB(Product product)
         {
             db.Products.Update(product);
             db.SaveChanges();
         }
+        // Добавление складМатериала в БД
         public void AddDB(WarehouseMaterial warehouseMaterial)
         {
             db.WarehouseMaterials.Add(warehouseMaterial);
             db.SaveChanges();
         }
+        // Удаление складМатериала из БД
+        public void RemoveDB(WarehouseMaterial warehouseMaterial)
+        {
+            db.Remove(warehouseMaterial);
+            db.SaveChanges();
+        }
+        // Обновление складМатериала в БД
         public void UpdateDB(WarehouseMaterial warehouseMaterial)
         {
             db.WarehouseMaterials.Update(warehouseMaterial);
             db.SaveChanges();
         }
+        // Добавление складПродукции в БД
         public void AddDB(WarehouseProduct warehouseProduct)
         {
             db.WarehouseProducts.Add(warehouseProduct);
             db.SaveChanges();
         }
+        // Удаление складПродукции из БД
+        public void RemoveDB(WarehouseProduct warehouseProduct)
+        {
+            db.Remove(warehouseProduct);
+            db.SaveChanges();
+        }
+        // Обновление складПродукции в БД
         public void UpdateDB(WarehouseProduct warehouseProduct)
         {
             db.WarehouseProducts.Update(warehouseProduct);
             db.SaveChanges();
         }
 
+        // Возвращает список всех материалов
         public List<Material> GetMaterials()
         {
-            return db.Materials.ToList();
+            return db.Materials.OrderBy(e => e.Id).ToList();
         }
+        // Возвращает список всей продукции
         public List<Product> GetProducts()
         {
-            return db.Products.ToList();
+            return db.Products.OrderBy(e => e.Id).ToList();
         }
+        // Возвращает продукцию из последней операции
         public WarehouseProduct GetLastWarehouseProduct(bool? added)
         {
-            return db.WarehouseProducts.Where(e => added == null || added == false ||
+            try
+            {
+                return db.WarehouseProducts.Where(e => added == null || added == false ||
                 e.IsAdded && !e.IsCanceled).OrderByDescending(e => e.Id).First();
-        }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+}
+        // Возвращает материал из последней операции
         public WarehouseMaterial GetLastWarehouseMaterial(bool? added, bool noProduct)
         {
-
-            return db.WarehouseMaterials.Where(e => added == null || added == false || e.IsAdded && !e.IsCanceled
-                && !noProduct || e.IdAddedProduct == null).OrderByDescending(e => e.Id).First();
+            try
+            {
+                return db.WarehouseMaterials.Where(e => added == null || added == false || e.IsAdded && !e.IsCanceled
+                    && !noProduct || e.IdAddedProduct == null).OrderByDescending(e => e.Id).First();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
+
+
+        // Нажатие на кнопку материалы
         private void buttonMat_Click(object sender, EventArgs e)
         {
             FormMaterials formMaterials = new FormMaterials(this);
             formMaterials.ShowDialog();
         }
+        // Нажатие на кнопку продукция
         private void buttonProduct_Click(object sender, EventArgs e)
         {
-            FormProduct formProduct = new FormProduct(this);
+            FormProducts formProduct = new FormProducts(this);
             formProduct.ShowDialog();
         }
 
+        // Нажатие на кнопку последний материал
         private void buttonLastMat_Click(object sender, EventArgs e)
         {
-            if (db.Materials.Count() == 0) return;
+            WarehouseMaterial lastMat = GetLastWarehouseMaterial(null, true);
+            if (lastMat == null)
+            {
+                MessageBox.Show("Последний используемый материал не найден","Материал не найден",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
             FormSelectedMaterial formSelectedMaterial = new
-                FormSelectedMaterial(GetLastWarehouseMaterial(null, true).IdMaterialNavigation, this);
+                FormSelectedMaterial(lastMat.IdMaterialNavigation, this);
             formSelectedMaterial.ShowDialog();
         }
 
+        // Нажатие на кнопку последняя продукция
         private void buttonLastProduct_Click(object sender, EventArgs e)
         {
-            if (db.Materials.Count() == 0) return;
-            FormSelectedProduct formSelectedProduct = new 
-                FormSelectedProduct(GetLastWarehouseProduct(null).IdProductNavigation, this);
+            WarehouseProduct lastProd = GetLastWarehouseProduct(null);
+            if (lastProd == null)
+            {
+                MessageBox.Show("Последняя используемая продукция не найдена", "Продукция не найдена", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            FormSelectedProduct formSelectedProduct = new
+                FormSelectedProduct(lastProd.IdProductNavigation, this);
             formSelectedProduct.ShowDialog();
         }
+
+        // Нажатие на кнопку отчет
+        private void buttonReport_Click(object sender, EventArgs e)
+        {
+            FormReport formReport = new FormReport(this);
+            formReport.ShowDialog();
+        }
+
     }
 }

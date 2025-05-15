@@ -13,45 +13,55 @@ using prodmatApp.Models;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Форма показывает список всех созданных материалов и дает возможность добавить новый материал
+    /// </summary>
     public partial class FormMaterials : Form
     {
-        FormMain main;
+       private FormMain main;
+
+        // Конструктор
         public FormMaterials(FormMain main)
         {
             InitializeComponent();
             this.main = main;
+            UpdatePanels();
         }
-        private void FormMaterials_Load(object sender, EventArgs e)
+        // Обновляет показываемые материалы
+        private void UpdatePanels()
         {
-            Update();
-        }
-        private void Update()
-        {
+            // Удаляет существующие элементы
+            materialsFlowPanel.Controls.Clear();
+            
+            // Создает панель для каждого существующего материала
             foreach (Material material in main.GetMaterials())
             {
                 MatProdPanel matProdPanel = new MatProdPanel(material, main);
                 materialsFlowPanel.Controls.Add(matProdPanel);
-                
             }
         }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
 
-        private void button1_Click(object sender, EventArgs e)
+        // Нажатие на кнопку создания нового материала
+        private void CreateNewMaterial(object sender, EventArgs e)
         {
+            // Показывает форму редактирования матрериала с аргументом null
             FormEditMaterial formEditMaterials = new FormEditMaterial();
+
+            // Пользователь выбрал "Подтвердить"
             if (formEditMaterials.ShowDialog() == DialogResult.OK)
             {
+                // Новый материал с информацией введенной пользователем
                 Material newMaterial = new Material
                 {
                     NameOfMaterial = formEditMaterials.textBoxMaterialName.Text,
                     Hue = (short)formEditMaterials.trackBarColour.Value,
                     AutoAmount = (int)formEditMaterials.numericStandartAmount.Value
                 };
+                // Добавление в форму
                 main.AddDB(newMaterial);
+                // Обнавление меню
+                UpdatePanels();
             }
-            Update();
 
         }
     }

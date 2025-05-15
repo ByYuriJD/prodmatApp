@@ -13,65 +13,45 @@ using prodmatApp.ProductForms;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Панель для отображения материала или продукции в списках для редактирования
+    /// </summary>
     public partial class MatProdPanel : UserControl
     {
         private Material material;
         private Product product;
         private FormMain main;
-        public MatProdPanel(Object matProdObject, FormMain main)
+
+        // Конструктор
+        public MatProdPanel(Object prodMat, FormMain main)
         {
             InitializeComponent();
             this.main = main;
 
-            if (matProdObject is Material)
+            if (prodMat is Material)  // Объект - продукция
             {
-                material = (Material)matProdObject;
-            }
-            else if (matProdObject is Product)
-            {
-                product = (Product)matProdObject;
-            }
-        }
-
-        private void MatProdPanel_Load(object sender, EventArgs e)
-        {
-            if (material != null)
-            {
+                material = (Material)prodMat;
                 buttonName.Text = material.NameOfMaterial;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
             }
-            else if (product != null)
+            else if (prodMat is Product) // Объект - материал
             {
+                product = (Product)prodMat;
                 buttonName.Text = product.NameOfProduct;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
             }
         }
-        private void warehouseMaterialUpdate()
-        {
-            if (material != null)
-            {
-                buttonName.Text = material.NameOfMaterial;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
-            }
-            else if (product != null)
-            {
-                buttonName.Text = product.NameOfProduct;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
-            }
-            UpdateStyles();
-        }
+        // Вид панели
         private void MatProdPanel_Paint(object sender, PaintEventArgs e)
         {
             int hue = 0;
-            if (material != null)
+            if (material != null) // Объект - материал
             {
                 hue = material.Hue;
             }
-            else if (product != null)
+            else if (product != null) // Объект - продукция
             {
                 hue = product.Hue;
             }
@@ -86,19 +66,17 @@ namespace prodmatApp
             g.Dispose();
         }
 
-        private void MatProdPanel_MouseClick(object sender, MouseEventArgs e)
-        {
-        }
 
+        // Нажатие на кнопку с названием
         private void buttonName_Click(object sender, EventArgs e)
         {
-            if (material != null)
+            if (material != null) // Объект - материал
             {
                 FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
                 formSelectedMaterial.ShowDialog();
                 Update();
             }
-            else if (product != null)
+            else if (product != null) // Объект - продукция
             {
                 FormSelectedProduct formSelectedProduct = new FormSelectedProduct(product, main);
                 formSelectedProduct.ShowDialog();
@@ -106,9 +84,11 @@ namespace prodmatApp
             }
         }
 
+
+        // Нажатие на кнопку добавления
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            if (material != null)
+            if (material != null) // Объект - материал
             {
 
                 WarehouseMaterial warehouseMaterial = new WarehouseMaterial
@@ -121,7 +101,7 @@ namespace prodmatApp
                 };
                 main.AddDB(warehouseMaterial);
             }
-            else if (product != null)
+            else if (product != null) // Объект - продукция
             {
                 FormProductCreation formProductCreation = new FormProductCreation(product, main);
                 if (formProductCreation.ShowDialog() == DialogResult.OK)
@@ -153,9 +133,10 @@ namespace prodmatApp
             }
         }
 
+        // Нажатие на кнопку расходования
         private void buttonUse_Click(object sender, EventArgs e)
         {
-            if (material != null)
+            if (material != null) // Объект - материал
             {
                 FormUseMaterial formUseMaterial = new FormUseMaterial(material, main);
                 if (formUseMaterial.ShowDialog() == DialogResult.OK)
@@ -170,7 +151,7 @@ namespace prodmatApp
                     });
                 }
             }
-            else if (product != null)
+            else if (product != null) // Объект - продукция
             {
 
                 WarehouseProduct warehouseProduct = new WarehouseProduct

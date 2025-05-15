@@ -12,17 +12,25 @@ using System.Windows.Forms;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Форма для редактирования продукции
+    /// Значения введенные пользователем должны обрабатываться при завершении диалога с результатом "ОК"
+    /// </summary>
     public partial class FormEditProduct : Form
     {
 
         private Product product;
         private FormMain main;
         public int warehouseProductId = -1;
+
+        // Конструктор
+        //Если создается новая продукция, то значение product должно быть null
         public FormEditProduct(FormMain main,Product product = null)
         {
             InitializeComponent();
 
             this.main = main;
+            // Заполнение стандартными данными
             if (product == null)
             {
                 trackBarColour.Value = 0;
@@ -31,6 +39,7 @@ namespace prodmatApp
                 return;
             }
 
+            // Заполнение данными существующей продукции
             this.product = product;
             textBoxProductName.Text = product.NameOfProduct;
             trackBarColour.Value = product.Hue;
@@ -38,16 +47,21 @@ namespace prodmatApp
             Text = "Изменение продукции";
         }
 
+        //Обновляет цвет бегунка взависимости от значения
         private void trackBarColour_ValueChanged(object sender, EventArgs e)
         {
             trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(trackBarColour.Value, .4, 1);
         }
+
+        //Нажатие на кнопку создания шаблона
         private void buttonTemplate_Click(object sender, EventArgs e)
         {
             FormProductCreation formProductCreation = new FormProductCreation(product, main);
+
+            // Пользователь выбрал "Подтвердить" на форме создания продукции
             if (formProductCreation.ShowDialog() == DialogResult.OK)
             {
-
+                // Добавляет операцию создания продукции в БД с параметром isTemplateOnly
                 main.AddDB(new WarehouseProduct
                 {
                     Amount = (int)formProductCreation.numericUpDown1.Value,
@@ -57,8 +71,11 @@ namespace prodmatApp
                     IsCanceled = false,
                     IsTemplateOnly = true,
                 });
+
+                // Получает данную операцию в БД
                 WarehouseProduct warehouseProduct = main.GetLastWarehouseProduct(true);
 
+                // Добавлят операцию расходования материла для каждого выбранного материала
                 foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
                 {
                     main.AddDB(new WarehouseMaterial
@@ -72,6 +89,7 @@ namespace prodmatApp
                         IdAddedProduct = warehouseProduct.Id,
                     });
                 }
+                // Идентификатор шаблона
                 warehouseProductId = warehouseProduct.Id;
             }
         }

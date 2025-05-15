@@ -11,24 +11,35 @@ using prodmatApp.Models;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Панель для истории всех операций материала
+    /// </summary>
     public partial class WarehouseMaterialPanel : UserControl
     {
-        WarehouseMaterial warehouseMaterial;
-        FormMain main;
+        private WarehouseMaterial warehouseMaterial;
+        private FormMain main;
+        
+        // Конструктор
         public WarehouseMaterialPanel(WarehouseMaterial warehouseMaterial, FormMain main)
         {
             InitializeComponent();
             this.warehouseMaterial = warehouseMaterial;
             this.main = main;
+
+            // Кол-во (Показывает на сколько продукции расходовано)
             labelAmount.Text = (warehouseMaterial.IsAdded ? "+" : "-") +
-                warehouseMaterial.Amount.ToString();
+                warehouseMaterial.Amount.ToString() + (warehouseMaterial.IsMultipliedByProduct==true?" x"+
+                warehouseMaterial.IdAddedProductNavigation.Amount:"");
             labelDate.Text = warehouseMaterial.DateOfAddition.ToString();
 
+            // Надпись на кнопке отмены операции
             if (warehouseMaterial.IsCanceled)
             {
                 buttonCancel.Text = "Возвратить";
             }
         }
+
+        // Нажатие на кнопку отмены операции
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             warehouseMaterial.IsCanceled = !warehouseMaterial.IsCanceled;

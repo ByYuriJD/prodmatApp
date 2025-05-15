@@ -1,6 +1,6 @@
 ﻿namespace prodmatApp
 {
-    partial class FormProduct
+    partial class FormProducts
     {
         /// <summary>
         /// Required designer variable.

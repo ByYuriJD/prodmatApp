@@ -11,18 +11,23 @@ using System.Windows.Forms;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Форма выбора материала или продукции пользователем
+    /// </summary>
     public partial class FormMatProdChoice : Form
     {
         public Material chosenMaterial;
         public Product chosenProduct;
         private FormMain main;
+        
+        // Конструктор
         public FormMatProdChoice(bool isChoiceMaterial,FormMain main)
         {
             InitializeComponent();
             this.main = main;
             
 
-            if (isChoiceMaterial)
+            if (isChoiceMaterial) // Выбирается материал
             {
                 foreach (Material material in main.GetMaterials())
                 {
@@ -30,7 +35,7 @@ namespace prodmatApp
                     flowLayoutPanel.Controls.Add(choicePanel);
                 }
             }
-            else
+            else // Выбирается продукция
             {
                 foreach(Product product in main.GetProducts())
                 {
@@ -39,11 +44,13 @@ namespace prodmatApp
                 }
             }
         }
+        // Материал выбран
         public void chooseMatProd(Material material)
         {
             chosenMaterial = material;
             DialogResult = DialogResult.OK;
         }
+        // Продукция выбрана
         public void chooseMatProd(Product product)
         {
             chosenProduct = product;

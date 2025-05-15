@@ -87,6 +87,7 @@
             buttonHistory.TabIndex = 1;
             buttonHistory.Text = "История";
             buttonHistory.UseVisualStyleBackColor = true;
+            buttonHistory.Click += buttonHistory_Click;
             // 
             // buttonBack
             // 

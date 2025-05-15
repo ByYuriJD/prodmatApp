@@ -12,89 +12,100 @@ using System.Windows.Forms;
 
 namespace prodmatApp
 {
+    /// <summary>
+    /// Форма выбранной продукции.
+    /// Показывает информацию о данной продукции и дает возможность добавлять и расходовать продукцию
+    /// </summary>
     public partial class FormSelectedProduct : Form
     {
         private Product product;
         private FormMain main;
+
+        // Конструктор
         public FormSelectedProduct(Product product, FormMain main)
         {
             InitializeComponent();
             this.main = main;
             this.product = product;
             labelName.Text = product.NameOfProduct;
+
+            UpdateAmount();
+        }
+        // Показывает количество продукции на складе
+        private void UpdateAmount()
+        {
+
+            // Существуют ли операции
             if (product.WarehouseProducts.Count > 0)
             {
+                // Кол-во продукции на складе
                 int materialTotal = 0;
+
+                // Все операции
                 foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
                 {
-                    if (warehouseProduct.IsCanceled) continue;
-                    materialTotal += warehouseProduct.Amount;
+                    // Операция отменена или является шаблоном
+                    if (warehouseProduct.IsCanceled || warehouseProduct.IsTemplateOnly) continue;
+                    materialTotal += warehouseProduct.Amount * (warehouseProduct.IsAdded ? 1 : -1);
                 }
+                //Присваивание значения
                 labelAmount.Text = materialTotal.ToString();
             }
             else labelAmount.Text = "0";
-
         }
+
+        // Нажатие на кнопку изменения продукции
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            FormEditProduct formEditProduct = new FormEditProduct(main,product);
+            // Показывает форму редактирования матрериала с аргументом product
+            FormEditProduct formEditProduct = new FormEditProduct(main, product);
+
+            // Пользователь выбрал "Подтвердить"
             if (formEditProduct.ShowDialog() == DialogResult.OK)
             {
+                // Обновление продукции с информацией введенной ползователем
                 product.NameOfProduct = formEditProduct.textBoxProductName.Text;
                 product.Hue = (short)formEditProduct.trackBarColour.Value;
                 product.IdTemplate = (int)formEditProduct.warehouseProductId != -1 ? formEditProduct.warehouseProductId : null;
 
+                // Обнавление продукции
                 main.UpdateDB(product);
 
+                // Обнавление вида формы
                 labelName.Text = product.NameOfProduct;
-                if (product.WarehouseProducts.Count > 0)
-                {
-                    int materialTotal = 0;
-                    foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
-                    {
-                        if (warehouseProduct.IsCanceled || warehouseProduct.IsTemplateOnly) continue;
-                        materialTotal += warehouseProduct.Amount * (warehouseProduct.IsAdded ? 1 : -1);
-                    }
-                    labelAmount.Text = materialTotal.ToString();
-                }
-                else labelAmount.Text = "0";
+                UpdateAmount();
             }
         }
 
+        // Нажатие на кнопку открытия истории
         private void buttonHistory_Click(object sender, EventArgs e)
         {
+            FormProductHistory formProductHistory = new FormProductHistory(product, main);
+            formProductHistory.ShowDialog();
+            UpdateAmount();
         }
 
-        private void buttonUse_Click(object sender, EventArgs e)
-        {
-            WarehouseProduct warehouseProduct = new WarehouseProduct
-            {
-                IdProduct = product.Id,
-                DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
-                IsAdded = false,
-                Amount = (int)numericUpDownUse.Value,
-                IsCanceled = false
-            };
-            main.AddDB(warehouseProduct);
-
-            labelAmount.Text = (Int32.Parse(labelAmount.Text) - warehouseProduct.Amount).ToString();
-        }
-
+        // Нажатие на кнопку добавления материала в склад
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             FormProductCreation formProductCreation = new FormProductCreation(product, main);
+
+            // Пользователь выбрал "Подтвердить" на форме создания продукции
             if (formProductCreation.ShowDialog() == DialogResult.OK)
             {
+                // Добавляет операцию создания продукции в БД
                 main.AddDB(new WarehouseProduct
                 {
                     Amount = (int)formProductCreation.numericUpDown1.Value,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = true,
                     IdProduct = product.Id,
-                    IsCanceled=false
+                    IsCanceled = false
                 });
+                // Получает данную операцию в БД
                 WarehouseProduct warehouseProduct = main.GetLastWarehouseProduct(true);
 
+                // Добавлят операцию расходования материла для каждого выбранного материала
                 foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
                 {
                     main.AddDB(new WarehouseMaterial
@@ -108,7 +119,27 @@ namespace prodmatApp
                         IdAddedProduct = warehouseProduct.Id
                     });
                 }
+                UpdateAmount();
             }
         }
+
+        // Нажатие на кнопку расходования материала
+        private void buttonUse_Click(object sender, EventArgs e)
+        {
+            // Создание новой операции продукции с количеством введенным пользователем
+            WarehouseProduct warehouseProduct = new WarehouseProduct
+            {
+                IdProduct = product.Id,
+                DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
+                IsAdded = false,
+                Amount = (int)numericUpDownUse.Value,
+                IsCanceled = false
+            };
+            // Добавление опреации в БД
+            main.AddDB(warehouseProduct);
+
+            UpdateAmount();
+        }
+
     }
 }

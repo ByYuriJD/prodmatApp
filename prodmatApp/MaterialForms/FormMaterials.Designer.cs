@@ -43,7 +43,6 @@
             panelBottom.Padding = new Padding(30, 10, 30, 10);
             panelBottom.Size = new Size(628, 70);
             panelBottom.TabIndex = 0;
-            panelBottom.Paint += panel1_Paint;
             // 
             // buttonAdd
             // 
@@ -54,7 +53,7 @@
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "Добавить материал";
             buttonAdd.UseVisualStyleBackColor = true;
-            buttonAdd.Click += button1_Click;
+            buttonAdd.Click += CreateNewMaterial;
             // 
             // materialsFlowPanel
             // 
@@ -75,7 +74,6 @@
             Controls.Add(panelBottom);
             Name = "FormMaterials";
             Text = "Выбор материала";
-            Load += FormMaterials_Load;
             panelBottom.ResumeLayout(false);
             ResumeLayout(false);
         }

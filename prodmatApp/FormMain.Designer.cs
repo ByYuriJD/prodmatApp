@@ -71,6 +71,7 @@
             buttonReport.TabIndex = 0;
             buttonReport.Text = "Создать отчет";
             buttonReport.UseVisualStyleBackColor = true;
+            buttonReport.Click += buttonReport_Click;
             // 
             // panelFill
             // 
@@ -249,6 +250,7 @@
             Controls.Add(panelBottom);
             Name = "FormMain";
             Text = "Продмат";
+            FormClosed += FormMain_FormClosed;
             Resize += Form1_Resize;
             panelBottom.ResumeLayout(false);
             panelFill.ResumeLayout(false);

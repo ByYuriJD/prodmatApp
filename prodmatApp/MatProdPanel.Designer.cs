@@ -96,9 +96,7 @@
             Name = "MatProdPanel";
             Padding = new Padding(8);
             Size = new Size(201, 112);
-            Load += MatProdPanel_Load;
             Paint += MatProdPanel_Paint;
-            MouseClick += MatProdPanel_MouseClick;
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }

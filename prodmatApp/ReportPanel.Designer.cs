@@ -1,6 +1,6 @@
 ﻿namespace prodmatApp
 {
-    partial class WarehouseMaterialPanel
+    partial class ReportPanel
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,60 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonCancel = new Button();
             labelAmount = new Label();
-            labelDate = new Label();
+            labelName = new Label();
             SuspendLayout();
-            // 
-            // buttonCancel
-            // 
-            buttonCancel.BackColor = Color.White;
-            buttonCancel.Dock = DockStyle.Right;
-            buttonCancel.Location = new Point(207, 8);
-            buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(94, 36);
-            buttonCancel.TabIndex = 0;
-            buttonCancel.Text = "Отменить";
-            buttonCancel.UseVisualStyleBackColor = false;
-            buttonCancel.Click += buttonCancel_Click;
             // 
             // labelAmount
             // 
-            labelAmount.Dock = DockStyle.Left;
-            labelAmount.Location = new Point(8, 8);
+            labelAmount.Dock = DockStyle.Right;
+            labelAmount.Location = new Point(197, 8);
             labelAmount.Name = "labelAmount";
-            labelAmount.Size = new Size(111, 36);
-            labelAmount.TabIndex = 1;
-            labelAmount.Text = "+999999999";
-            labelAmount.TextAlign = ContentAlignment.MiddleCenter;
+            labelAmount.Size = new Size(118, 33);
+            labelAmount.TabIndex = 0;
+            labelAmount.Text = "label1";
+            labelAmount.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // labelDate
+            // labelName
             // 
-            labelDate.Dock = DockStyle.Fill;
-            labelDate.Location = new Point(119, 8);
-            labelDate.Name = "labelDate";
-            labelDate.Size = new Size(88, 36);
-            labelDate.TabIndex = 2;
-            labelDate.Text = "31.12.2000";
-            labelDate.TextAlign = ContentAlignment.MiddleCenter;
+            labelName.Dock = DockStyle.Fill;
+            labelName.Location = new Point(8, 8);
+            labelName.Name = "labelName";
+            labelName.Size = new Size(189, 33);
+            labelName.TabIndex = 1;
+            labelName.Text = "label1";
+            labelName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // WarehouseMaterialPanel
+            // UserControl1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(labelDate);
+            Controls.Add(labelName);
             Controls.Add(labelAmount);
-            Controls.Add(buttonCancel);
-            Name = "WarehouseMaterialPanel";
+            Name = "UserControl1";
             Padding = new Padding(8);
-            Size = new Size(309, 52);
+            Size = new Size(323, 49);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button buttonCancel;
         private Label labelAmount;
-        private Label labelDate;
+        private Label labelName;
     }
 }

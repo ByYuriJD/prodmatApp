@@ -11,10 +11,16 @@ using prodmatApp.Models;
 
 namespace prodmatApp.ProductForms
 {
+    /// <summary>
+    /// Форма для создания продукции и расходования материалов на него
+    /// </summary>
     public partial class FormProductCreation : Form
     {
         public List<ProductCreationMaterialPanel> materials;
         private FormMain main;
+
+        // Конструктор
+        // material устанавливается если данная форма создана через меню
         public FormProductCreation(Product product, FormMain main, Material material = null, int materialAmount = 0)
         {
             InitializeComponent();
@@ -23,11 +29,15 @@ namespace prodmatApp.ProductForms
             materials = new List<ProductCreationMaterialPanel>();
             labelProductName.Text = product.NameOfProduct;
             
+            // На используется material
             if (material == null)
             {
+                // Имеется шаблон
                 if (template != null)
                 {
                     numericUpDown1.Value = template.Amount;
+
+                    // Добавляет материалы
                     foreach (WarehouseMaterial warehouseMaterial in template.WarehouseMaterials)
                     {
                         ProductCreationMaterialPanel materialPanel = new ProductCreationMaterialPanel(this, warehouseMaterial.IdMaterialNavigation,
@@ -40,12 +50,15 @@ namespace prodmatApp.ProductForms
             }
             else
             {
+                // Добавляет расходуемый материал
                 ProductCreationMaterialPanel materialPanel = new ProductCreationMaterialPanel(this, material, materialAmount);
                 tableLayoutPanel.Controls.Add(materialPanel);
                 materials.Add(materialPanel);
             }
 
         }
+
+        // Метод удаления панели материала
         public void removePanel(ProductCreationMaterialPanel materialPanel)
         {
             if (materials.Contains(materialPanel))
@@ -56,10 +69,12 @@ namespace prodmatApp.ProductForms
             }
         }
 
+        // Нажатие на кнопку добавления материала
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             FormMatProdChoice formChoice = new FormMatProdChoice(true, main);
 
+            // Материал выбран
             if (formChoice.ShowDialog() == DialogResult.OK)
             {
                 if (formChoice.chosenMaterial != null)

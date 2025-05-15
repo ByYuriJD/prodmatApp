@@ -31,9 +31,9 @@
             panelTop = new Panel();
             labelMaterialName = new Label();
             panelBottom = new Panel();
+            buttonDelete = new Button();
             buttonBack = new Button();
             tableLayoutPanel = new TableLayoutPanel();
-            buttonDelete = new Button();
             panelTop.SuspendLayout();
             panelBottom.SuspendLayout();
             SuspendLayout();
@@ -45,7 +45,7 @@
             panelTop.Location = new Point(0, 0);
             panelTop.Name = "panelTop";
             panelTop.Padding = new Padding(8);
-            panelTop.Size = new Size(404, 47);
+            panelTop.Size = new Size(407, 47);
             panelTop.TabIndex = 0;
             // 
             // labelMaterialName
@@ -53,7 +53,7 @@
             labelMaterialName.Dock = DockStyle.Fill;
             labelMaterialName.Location = new Point(8, 8);
             labelMaterialName.Name = "labelMaterialName";
-            labelMaterialName.Size = new Size(388, 31);
+            labelMaterialName.Size = new Size(391, 31);
             labelMaterialName.TabIndex = 0;
             labelMaterialName.Text = "label1";
             labelMaterialName.TextAlign = ContentAlignment.MiddleCenter;
@@ -63,17 +63,28 @@
             panelBottom.Controls.Add(buttonDelete);
             panelBottom.Controls.Add(buttonBack);
             panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(0, 390);
+            panelBottom.Location = new Point(0, 393);
             panelBottom.Name = "panelBottom";
             panelBottom.Padding = new Padding(12, 8, 12, 8);
-            panelBottom.Size = new Size(404, 60);
+            panelBottom.Size = new Size(407, 60);
             panelBottom.TabIndex = 1;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Dock = DockStyle.Fill;
+            buttonDelete.Location = new Point(12, 8);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(141, 44);
+            buttonDelete.TabIndex = 1;
+            buttonDelete.Text = "Удалить историю";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // buttonBack
             // 
             buttonBack.DialogResult = DialogResult.Cancel;
             buttonBack.Dock = DockStyle.Right;
-            buttonBack.Location = new Point(150, 8);
+            buttonBack.Location = new Point(153, 8);
             buttonBack.Name = "buttonBack";
             buttonBack.Size = new Size(242, 44);
             buttonBack.TabIndex = 0;
@@ -84,34 +95,25 @@
             // 
             tableLayoutPanel.AutoScroll = true;
             tableLayoutPanel.ColumnCount = 1;
-            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel.Dock = DockStyle.Fill;
             tableLayoutPanel.Location = new Point(0, 47);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 1;
             tableLayoutPanel.RowStyles.Add(new RowStyle());
-            tableLayoutPanel.Size = new Size(404, 343);
+            tableLayoutPanel.Size = new Size(407, 346);
             tableLayoutPanel.TabIndex = 2;
-            // 
-            // buttonDelete
-            // 
-            buttonDelete.Dock = DockStyle.Fill;
-            buttonDelete.Location = new Point(12, 8);
-            buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(138, 44);
-            buttonDelete.TabIndex = 1;
-            buttonDelete.Text = "Удалить историю";
-            buttonDelete.UseVisualStyleBackColor = true;
             // 
             // FormMaterialHistory
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(404, 450);
+            ClientSize = new Size(407, 453);
             Controls.Add(tableLayoutPanel);
             Controls.Add(panelBottom);
             Controls.Add(panelTop);
+            MinimumSize = new Size(425, 500);
             Name = "FormMaterialHistory";
             Text = "История количества материала";
             panelTop.ResumeLayout(false);

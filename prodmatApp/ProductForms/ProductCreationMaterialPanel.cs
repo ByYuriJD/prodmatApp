@@ -11,17 +11,21 @@ using System.Windows.Forms;
 
 namespace prodmatApp.ProductForms
 {
+    /// <summary>
+    /// Панель расходования материала при создании продукции
+    /// </summary>
     public partial class ProductCreationMaterialPanel : UserControl
     {
         public Material material;
         private FormProductCreation FormProductCreation;
+        
+        // Конструктор
         public ProductCreationMaterialPanel(FormProductCreation formProductCreation, Material material, int amount = 1, bool isMultipliedByProduct = true)
         {
             InitializeComponent();
 
             try
             {
-
                 this.material = material;
                 this.FormProductCreation = formProductCreation;
                 labelName.Text = material.NameOfMaterial;
@@ -38,6 +42,8 @@ namespace prodmatApp.ProductForms
             }
 
         }
+
+        // Нажатие на кнопку удаления панели
         private void buttonRemove_Click(object sender, EventArgs e)
         {
             FormProductCreation.removePanel(this);
