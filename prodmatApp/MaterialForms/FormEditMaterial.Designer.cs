@@ -42,6 +42,7 @@
             buttonOK = new Button();
             buttonBack = new Button();
             errorProvider = new ErrorProvider(components);
+            errorProvider1 = new ErrorProvider(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericStandartAmount).BeginInit();
             panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // textBoxMaterialName
@@ -151,7 +153,7 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(4, 4);
             panel5.Name = "panel5";
-            panel5.Padding = new Padding(0, 0, 26, 0);
+            panel5.Padding = new Padding(0, 0, 30, 0);
             panel5.Size = new Size(241, 35);
             panel5.TabIndex = 1;
             // 
@@ -162,7 +164,7 @@
             buttonOK.Location = new Point(0, 0);
             buttonOK.Margin = new Padding(8);
             buttonOK.Name = "buttonOK";
-            buttonOK.Size = new Size(215, 35);
+            buttonOK.Size = new Size(211, 35);
             buttonOK.TabIndex = 2;
             buttonOK.Text = "Ок";
             buttonOK.UseVisualStyleBackColor = true;
@@ -183,13 +185,15 @@
             // 
             errorProvider.ContainerControl = this;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // FormEditMaterial
             // 
-            AcceptButton = buttonOK;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            CancelButton = buttonBack;
             ClientSize = new Size(394, 169);
             Controls.Add(panel4);
             Controls.Add(panel2);
@@ -213,6 +217,7 @@
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -231,5 +236,6 @@
         private Panel panel5;
         private Button buttonOK;
         private ErrorProvider errorProvider;
+        private ErrorProvider errorProvider1;
     }
 }

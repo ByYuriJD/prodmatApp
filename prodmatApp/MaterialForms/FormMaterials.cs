@@ -38,6 +38,21 @@ namespace prodmatApp
             {
                 MatProdPanel matProdPanel = new MatProdPanel(material, main);
                 materialsFlowPanel.Controls.Add(matProdPanel);
+                matProdPanel.Disposed += UpdatePanels;
+            }
+        }
+
+        private void UpdatePanels(object? sender, EventArgs e)
+        {
+            // Удаляет существующие элементы
+            materialsFlowPanel.Controls.Clear();
+
+            // Создает панель для каждого существующего материала
+            foreach (Material material in main.GetMaterials())
+            {
+                MatProdPanel matProdPanel = new MatProdPanel(material, main);
+                materialsFlowPanel.Controls.Add(matProdPanel);
+                matProdPanel.Disposed += UpdatePanels;
             }
         }
 

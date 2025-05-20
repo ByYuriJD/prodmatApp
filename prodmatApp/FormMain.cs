@@ -18,7 +18,10 @@ namespace prodmatApp
         {
             InitializeComponent();
 
+
             db = new ProdMatDbContext();
+
+
             db.Materials.Load();
             db.Products.Load();
             db.WarehouseMaterials.Load();
@@ -61,8 +64,71 @@ namespace prodmatApp
             UpdateStyles();
         }
 
-        // Добавление материала в БД
-        public void AddDB(Material material)
+        public bool ContinueMaterialUsage(int[] amounts, Material[] materials)
+        {
+            List<string> materialsInvalid = new List<string>();
+            for (int i = 0; i < materials.Length; i++)
+            {
+                int materialTotal = getAmount(materials[i]);
+
+                if (materialTotal - amounts[i] >= 0) continue;
+
+                materialsInvalid.Add(materials[i].NameOfMaterial);
+
+            }
+            if (materialsInvalid.Count == 0) return true;
+            else if (materialsInvalid.Count == 1) return MessageBox.Show("Нодостаточно материала: " + materialsInvalid.First() + ".\nПродолжить?",
+                "Нодостаточно материала", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            return MessageBox.Show("Нодостаточно материалов: " + string.Join(", ",materialsInvalid) + ".\nПродолжить?",
+                "Нодостаточно материала", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+        }
+        public bool ContinueProductUsage(int amount, Product product)
+        {
+            int productTotal = getAmount(product);
+            if (productTotal - amount >= 0) return true;
+            return MessageBox.Show("Нодостаточно продукции: " + product.NameOfProduct + ".\nПродолжить?",
+                "Нодостаточно продукции", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+        }
+
+        public int getAmount(Material material)
+        {
+
+            // Кол-во материала на складе
+            int materialTotal = 0;
+
+            // Все операции
+            foreach (WarehouseMaterial warehouseMaterial in material.WarehouseMaterials)
+            {
+                // Операция отменена или является частью шаблона
+                if (warehouseMaterial.IsCanceled ||
+                    warehouseMaterial.IdAddedProduct != null && warehouseMaterial.IdAddedProductNavigation.IsTemplateOnly) continue;
+                // Кол-во материала умножается на кол-во продукции
+                if (warehouseMaterial.IsMultipliedByProduct == true &&
+                    warehouseMaterial.IdAddedProductNavigation != null)
+                {
+                    materialTotal -= warehouseMaterial.Amount * warehouseMaterial.IdAddedProductNavigation.Amount;
+                    continue;
+                }
+                // Кол-во не умножается
+                materialTotal += warehouseMaterial.Amount * (warehouseMaterial.IsAdded ? 1 : -1);
+            }
+            return materialTotal;
+        }
+        public int getAmount(Product product)
+        {
+            int productTotal = 0;
+            // Все операции
+            foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
+            {
+                // Операция отменена или является шаблоном
+                if (warehouseProduct.IsCanceled || warehouseProduct.IsTemplateOnly) continue;
+                productTotal += warehouseProduct.Amount * (warehouseProduct.IsAdded ? 1 : -1);
+            }
+            return productTotal;
+        }
+
+    // Добавление материала в БД
+    public void AddDB(Material material)
         {
             db.Materials.Add(material);
             db.SaveChanges();

@@ -38,9 +38,9 @@
             // buttonName
             // 
             buttonName.Dock = DockStyle.Top;
-            buttonName.Location = new Point(8, 8);
+            buttonName.Location = new Point(16, 16);
             buttonName.Name = "buttonName";
-            buttonName.Size = new Size(185, 44);
+            buttonName.Size = new Size(169, 35);
             buttonName.TabIndex = 2;
             buttonName.Text = "button1";
             buttonName.UseVisualStyleBackColor = true;
@@ -54,21 +54,21 @@
             tableLayoutPanel1.Controls.Add(buttonUse, 1, 0);
             tableLayoutPanel1.Controls.Add(buttonAdd, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(8, 52);
+            tableLayoutPanel1.Location = new Point(16, 51);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.Padding = new Padding(12, 6, 12, 6);
+            tableLayoutPanel1.Padding = new Padding(12, 6, 12, 2);
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(185, 52);
+            tableLayoutPanel1.Size = new Size(169, 53);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // buttonUse
             // 
             buttonUse.Dock = DockStyle.Fill;
             buttonUse.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            buttonUse.Location = new Point(95, 9);
+            buttonUse.Location = new Point(87, 9);
             buttonUse.Name = "buttonUse";
-            buttonUse.Size = new Size(75, 34);
+            buttonUse.Size = new Size(67, 39);
             buttonUse.TabIndex = 1;
             buttonUse.Text = "-";
             buttonUse.UseVisualStyleBackColor = true;
@@ -80,7 +80,7 @@
             buttonAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonAdd.Location = new Point(15, 9);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(74, 34);
+            buttonAdd.Size = new Size(66, 39);
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "+";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -94,7 +94,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(buttonName);
             Name = "MatProdPanel";
-            Padding = new Padding(8);
+            Padding = new Padding(16, 16, 16, 8);
             Size = new Size(201, 112);
             Paint += MatProdPanel_Paint;
             tableLayoutPanel1.ResumeLayout(false);

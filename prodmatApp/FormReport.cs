@@ -24,11 +24,13 @@ namespace prodmatApp
             {
                 ReportPanel reportPanel = new ReportPanel(material);
                 tableLayoutPanel.Controls.Add(reportPanel);
+                reportPanel.Dock = DockStyle.Fill;
             }
             foreach (Product product in main.GetProducts())
             {
                 ReportPanel reportPanel = new ReportPanel(product);
                 tableLayoutPanel.Controls.Add(reportPanel);
+                reportPanel.Dock = DockStyle.Fill;
             }
         }
     }

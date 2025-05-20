@@ -35,9 +35,9 @@
             // labelAmount
             // 
             labelAmount.Dock = DockStyle.Right;
-            labelAmount.Location = new Point(197, 8);
+            labelAmount.Location = new Point(194, 8);
             labelAmount.Name = "labelAmount";
-            labelAmount.Size = new Size(118, 33);
+            labelAmount.Size = new Size(118, 31);
             labelAmount.TabIndex = 0;
             labelAmount.Text = "label1";
             labelAmount.TextAlign = ContentAlignment.MiddleRight;
@@ -47,20 +47,21 @@
             labelName.Dock = DockStyle.Fill;
             labelName.Location = new Point(8, 8);
             labelName.Name = "labelName";
-            labelName.Size = new Size(189, 33);
+            labelName.Size = new Size(186, 31);
             labelName.TabIndex = 1;
             labelName.Text = "label1";
             labelName.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // UserControl1
+            // ReportPanel
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BorderStyle = BorderStyle.FixedSingle;
             Controls.Add(labelName);
             Controls.Add(labelAmount);
-            Name = "UserControl1";
+            Name = "ReportPanel";
             Padding = new Padding(8);
-            Size = new Size(323, 49);
+            Size = new Size(320, 47);
             ResumeLayout(false);
         }
 

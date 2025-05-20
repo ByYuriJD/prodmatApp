@@ -30,6 +30,16 @@ namespace prodmatApp
             labelName.Text = product.NameOfProduct;
 
             UpdateAmount();
+
+            buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            buttonBack.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            buttonEdit.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            buttonHistory.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            numericUpDownUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            buttonDelete.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+            BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .3, 1);
+            panelMain.BackColor = Color.White;
         }
         // Показывает количество продукции на складе
         private void UpdateAmount()
@@ -39,17 +49,10 @@ namespace prodmatApp
             if (product.WarehouseProducts.Count > 0)
             {
                 // Кол-во продукции на складе
-                int materialTotal = 0;
+                int productTotal = main.getAmount(product);
 
-                // Все операции
-                foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
-                {
-                    // Операция отменена или является шаблоном
-                    if (warehouseProduct.IsCanceled || warehouseProduct.IsTemplateOnly) continue;
-                    materialTotal += warehouseProduct.Amount * (warehouseProduct.IsAdded ? 1 : -1);
-                }
                 //Присваивание значения
-                labelAmount.Text = materialTotal.ToString();
+                labelAmount.Text = productTotal.ToString();
             }
             else labelAmount.Text = "0";
         }
@@ -74,6 +77,16 @@ namespace prodmatApp
                 // Обнавление вида формы
                 labelName.Text = product.NameOfProduct;
                 UpdateAmount();
+
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonBack.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonEdit.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonHistory.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                numericUpDownUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonDelete.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .3, 1);
+                panelMain.BackColor = Color.White;
             }
         }
 
@@ -126,6 +139,9 @@ namespace prodmatApp
         // Нажатие на кнопку расходования материала
         private void buttonUse_Click(object sender, EventArgs e)
         {
+            // Проверяет достаточно ли продукции и спрашивает пользователю стоит продолжить если нехватает
+            if (!main.ContinueProductUsage((int)numericUpDownUse.Value, product)) return;
+
             // Создание новой операции продукции с количеством введенным пользователем
             WarehouseProduct warehouseProduct = new WarehouseProduct
             {
@@ -141,5 +157,22 @@ namespace prodmatApp
             UpdateAmount();
         }
 
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+
+            if (product.WarehouseProducts.Count != 0)
+            {
+                MessageBox.Show("Невозможно удалить продукцию так как история не пуста", "Невозможно удалить продукцию",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтвердить удаление продукции?\nВозвратить продукцию невозможно", "Удаление продукции",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                main.RemoveDB(product);
+                MessageBox.Show("Продукция удален", "Удаление продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.Abort;
+            }
+        }
     }
 }

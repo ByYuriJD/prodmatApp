@@ -25,7 +25,7 @@ namespace prodmatApp
 
         // Конструктор
         //Если создается новая продукция, то значение product должно быть null
-        public FormEditProduct(FormMain main,Product product = null)
+        public FormEditProduct(FormMain main, Product product = null)
         {
             InitializeComponent();
 
@@ -36,6 +36,7 @@ namespace prodmatApp
                 trackBarColour.Value = 0;
                 trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(0, .4, 1);
                 Text = "Новая продукция";
+                ValidateForm();
                 return;
             }
 
@@ -45,6 +46,7 @@ namespace prodmatApp
             trackBarColour.Value = product.Hue;
             trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(trackBarColour.Value, .4, 1);
             Text = "Изменение продукции";
+            ValidateForm();
         }
 
         //Обновляет цвет бегунка взависимости от значения
@@ -92,6 +94,29 @@ namespace prodmatApp
                 // Идентификатор шаблона
                 warehouseProductId = warehouseProduct.Id;
             }
+        }
+        // Проверка на правильность заполнения формы
+        private void ValidateForm()
+        {
+            if (textBoxProductName.Text.Trim().Length < 1)
+            {
+                errorProvider.SetError(buttonOK, "Название не может быть пустым");
+                buttonOK.Enabled = false;
+                return;
+            }
+            else if (textBoxProductName.Text.Trim().Length > 40)
+            {
+                errorProvider.SetError(buttonOK, "Название не может превышать 40 символов");
+                buttonOK.Enabled = false;
+                return;
+            }
+            errorProvider.Clear();
+            buttonOK.Enabled = true;
+        }
+
+        private void textBoxProductName_TextChanged(object sender, EventArgs e)
+        {
+            ValidateForm();
         }
     }
 }

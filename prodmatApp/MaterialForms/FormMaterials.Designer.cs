@@ -72,7 +72,10 @@
             ClientSize = new Size(628, 463);
             Controls.Add(materialsFlowPanel);
             Controls.Add(panelBottom);
+            MaximizeBox = false;
+            MinimumSize = new Size(300, 300);
             Name = "FormMaterials";
+            ShowIcon = false;
             Text = "Выбор материала";
             panelBottom.ResumeLayout(false);
             ResumeLayout(false);

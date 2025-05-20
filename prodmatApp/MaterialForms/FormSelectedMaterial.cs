@@ -30,33 +30,27 @@ namespace prodmatApp
             numericUpDownAdd.Value = material.AutoAmount;
             labelName.Text = material.NameOfMaterial;
 
+            buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            buttonBack.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            buttonEdit.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            buttonHistory.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            numericUpDownAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            buttonDelete.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+            BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .3, 1);
+            panelMain.BackColor = Color.White;
+
             UpdateAmount();
         }
         // Показывает количество материала на складе
         private void UpdateAmount()
         {
+
             // Существуют ли операции
             if (material.WarehouseMaterials.Count > 0)
             {
                 // Кол-во материала на складе
-                int materialTotal = 0;
-                
-                // Все операции
-                foreach (WarehouseMaterial warehouseMaterial in material.WarehouseMaterials)
-                {
-                    // Операция отменена или является частью шаблона
-                    if (warehouseMaterial.IsCanceled ||
-                        warehouseMaterial.IdAddedProduct != null && warehouseMaterial.IdAddedProductNavigation.IsTemplateOnly) continue;
-                    // Кол-во материала умножается на кол-во продукции
-                    if (warehouseMaterial.IsMultipliedByProduct == true &&
-                        warehouseMaterial.IdAddedProductNavigation != null)
-                    {
-                        materialTotal -= warehouseMaterial.Amount * warehouseMaterial.IdAddedProductNavigation.Amount;
-                        continue;
-                    }
-                    // Кол-во не умножается
-                    materialTotal += warehouseMaterial.Amount * (warehouseMaterial.IsAdded ? 1 : -1);
-                }
+                int materialTotal = main.getAmount(material);
                 //Присваивание значения
                 labelAmount.Text = materialTotal.ToString();
             }
@@ -82,7 +76,18 @@ namespace prodmatApp
                 // Обнавление вида формы
                 numericUpDownAdd.Value = material.AutoAmount;
                 labelName.Text = material.NameOfMaterial;
+
                 UpdateAmount();
+
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonBack.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonEdit.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonHistory.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                numericUpDownAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonDelete.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .3, 1);
+                panelMain.BackColor = Color.White;
             }
         }
 
@@ -120,6 +125,8 @@ namespace prodmatApp
             // Использование материала без добавления продукции
             if (formUseMaterial.ShowDialog() == DialogResult.OK)
             {
+                // Проверяет достаточно ли материала и спрашивает пользователю стоит продолжить если нехватает
+                if (!main.ContinueMaterialUsage([(int)formUseMaterial.numericUpDown1.Value], [material])) return;
                 main.AddDB(new WarehouseMaterial
                 {
                     IdMaterial = material.Id,
@@ -127,9 +134,26 @@ namespace prodmatApp
                     IsAdded = false,
                     Amount = (int)formUseMaterial.numericUpDown1.Value,
                     IsCanceled = false
-                }); 
+                });
             }
             UpdateAmount();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (material.WarehouseMaterials.Count != 0)
+            {
+                MessageBox.Show("Невозможно удалить материал так как история не пуста","Невозможно удалить материал",
+                    MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Подтвердить удаление материала?\nВозвратить материал невозможно", "Удаление материала",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                main.RemoveDB(material);
+                MessageBox.Show("Материал удален","Удаление материала",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                DialogResult = DialogResult.Abort;
+            }
         }
     }
 }

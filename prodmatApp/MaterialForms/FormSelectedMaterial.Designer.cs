@@ -28,24 +28,148 @@
         /// </summary>
         private void InitializeComponent()
         {
+            panelMain = new Panel();
+            panelFill = new Panel();
+            labelAmount = new Label();
+            panelTop = new Panel();
+            labelName = new Label();
+            buttonDelete = new Button();
+            panelUse = new Panel();
+            buttonUse = new Button();
+            panelAdd = new Panel();
+            numericUpDownAdd = new NumericUpDown();
+            buttonAdd = new Button();
             panelBottom = new Panel();
             buttonEdit = new Button();
             buttonHistory = new Button();
             buttonBack = new Button();
-            panelAdd = new Panel();
-            numericUpDownAdd = new NumericUpDown();
-            buttonAdd = new Button();
-            panelUse = new Panel();
-            buttonUse = new Button();
-            panel1 = new Panel();
-            labelAmount = new Label();
-            labelName = new Label();
-            panelBottom.SuspendLayout();
+            panelMain.SuspendLayout();
+            panelFill.SuspendLayout();
+            panelTop.SuspendLayout();
+            panelUse.SuspendLayout();
             panelAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownAdd).BeginInit();
-            panelUse.SuspendLayout();
-            panel1.SuspendLayout();
+            panelBottom.SuspendLayout();
             SuspendLayout();
+            // 
+            // panelMain
+            // 
+            panelMain.Controls.Add(panelFill);
+            panelMain.Controls.Add(panelUse);
+            panelMain.Controls.Add(panelAdd);
+            panelMain.Controls.Add(panelBottom);
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(4, 4);
+            panelMain.Name = "panelMain";
+            panelMain.Size = new Size(394, 377);
+            panelMain.TabIndex = 0;
+            // 
+            // panelFill
+            // 
+            panelFill.Controls.Add(labelAmount);
+            panelFill.Controls.Add(panelTop);
+            panelFill.Dock = DockStyle.Fill;
+            panelFill.Location = new Point(0, 0);
+            panelFill.Name = "panelFill";
+            panelFill.Padding = new Padding(12);
+            panelFill.Size = new Size(394, 216);
+            panelFill.TabIndex = 7;
+            // 
+            // labelAmount
+            // 
+            labelAmount.Dock = DockStyle.Fill;
+            labelAmount.Location = new Point(12, 56);
+            labelAmount.Name = "labelAmount";
+            labelAmount.Size = new Size(370, 148);
+            labelAmount.TabIndex = 3;
+            labelAmount.Text = "label2";
+            labelAmount.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panelTop
+            // 
+            panelTop.Controls.Add(labelName);
+            panelTop.Controls.Add(buttonDelete);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(12, 12);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(370, 44);
+            panelTop.TabIndex = 1;
+            // 
+            // labelName
+            // 
+            labelName.Dock = DockStyle.Fill;
+            labelName.Location = new Point(90, 0);
+            labelName.Name = "labelName";
+            labelName.Size = new Size(280, 44);
+            labelName.TabIndex = 4;
+            labelName.Text = "label1";
+            labelName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Dock = DockStyle.Left;
+            buttonDelete.Location = new Point(0, 0);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(90, 44);
+            buttonDelete.TabIndex = 0;
+            buttonDelete.Text = "Удалить";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // panelUse
+            // 
+            panelUse.Controls.Add(buttonUse);
+            panelUse.Dock = DockStyle.Bottom;
+            panelUse.Location = new Point(0, 216);
+            panelUse.Name = "panelUse";
+            panelUse.Padding = new Padding(12, 4, 12, 4);
+            panelUse.Size = new Size(394, 49);
+            panelUse.TabIndex = 6;
+            // 
+            // buttonUse
+            // 
+            buttonUse.Dock = DockStyle.Fill;
+            buttonUse.Location = new Point(12, 4);
+            buttonUse.Name = "buttonUse";
+            buttonUse.Size = new Size(370, 41);
+            buttonUse.TabIndex = 0;
+            buttonUse.Text = "Расходовать";
+            buttonUse.UseVisualStyleBackColor = true;
+            buttonUse.Click += buttonUse_Click;
+            // 
+            // panelAdd
+            // 
+            panelAdd.Controls.Add(numericUpDownAdd);
+            panelAdd.Controls.Add(buttonAdd);
+            panelAdd.Dock = DockStyle.Bottom;
+            panelAdd.Location = new Point(0, 265);
+            panelAdd.Name = "panelAdd";
+            panelAdd.Padding = new Padding(8, 4, 8, 4);
+            panelAdd.Size = new Size(394, 44);
+            panelAdd.TabIndex = 5;
+            // 
+            // numericUpDownAdd
+            // 
+            numericUpDownAdd.Dock = DockStyle.Fill;
+            numericUpDownAdd.Location = new Point(8, 4);
+            numericUpDownAdd.Margin = new Padding(5);
+            numericUpDownAdd.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            numericUpDownAdd.Name = "numericUpDownAdd";
+            numericUpDownAdd.Size = new Size(273, 27);
+            numericUpDownAdd.TabIndex = 1;
+            numericUpDownAdd.TextAlign = HorizontalAlignment.Right;
+            numericUpDownAdd.ThousandsSeparator = true;
+            // 
+            // buttonAdd
+            // 
+            buttonAdd.Dock = DockStyle.Right;
+            buttonAdd.Location = new Point(281, 4);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(105, 36);
+            buttonAdd.TabIndex = 0;
+            buttonAdd.Text = "Добавить";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
             // 
             // panelBottom
             // 
@@ -53,18 +177,18 @@
             panelBottom.Controls.Add(buttonHistory);
             panelBottom.Controls.Add(buttonBack);
             panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(0, 317);
+            panelBottom.Location = new Point(0, 309);
             panelBottom.Name = "panelBottom";
             panelBottom.Padding = new Padding(8);
-            panelBottom.Size = new Size(400, 68);
-            panelBottom.TabIndex = 0;
+            panelBottom.Size = new Size(394, 68);
+            panelBottom.TabIndex = 4;
             // 
             // buttonEdit
             // 
             buttonEdit.Dock = DockStyle.Fill;
             buttonEdit.Location = new Point(102, 8);
             buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(185, 52);
+            buttonEdit.Size = new Size(179, 52);
             buttonEdit.TabIndex = 2;
             buttonEdit.Text = "Редактировать";
             buttonEdit.UseVisualStyleBackColor = true;
@@ -85,7 +209,7 @@
             // 
             buttonBack.DialogResult = DialogResult.Cancel;
             buttonBack.Dock = DockStyle.Right;
-            buttonBack.Location = new Point(287, 8);
+            buttonBack.Location = new Point(281, 8);
             buttonBack.Margin = new Padding(10);
             buttonBack.Name = "buttonBack";
             buttonBack.Size = new Size(105, 52);
@@ -93,125 +217,44 @@
             buttonBack.Text = "Назад";
             buttonBack.UseVisualStyleBackColor = true;
             // 
-            // panelAdd
-            // 
-            panelAdd.Controls.Add(numericUpDownAdd);
-            panelAdd.Controls.Add(buttonAdd);
-            panelAdd.Dock = DockStyle.Bottom;
-            panelAdd.Location = new Point(0, 273);
-            panelAdd.Name = "panelAdd";
-            panelAdd.Padding = new Padding(8, 4, 8, 4);
-            panelAdd.Size = new Size(400, 44);
-            panelAdd.TabIndex = 1;
-            // 
-            // numericUpDownAdd
-            // 
-            numericUpDownAdd.Dock = DockStyle.Fill;
-            numericUpDownAdd.Location = new Point(8, 4);
-            numericUpDownAdd.Margin = new Padding(5);
-            numericUpDownAdd.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericUpDownAdd.Name = "numericUpDownAdd";
-            numericUpDownAdd.Size = new Size(279, 27);
-            numericUpDownAdd.TabIndex = 1;
-            numericUpDownAdd.TextAlign = HorizontalAlignment.Right;
-            numericUpDownAdd.ThousandsSeparator = true;
-            // 
-            // buttonAdd
-            // 
-            buttonAdd.Dock = DockStyle.Right;
-            buttonAdd.Location = new Point(287, 4);
-            buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(105, 36);
-            buttonAdd.TabIndex = 0;
-            buttonAdd.Text = "Добавить";
-            buttonAdd.UseVisualStyleBackColor = true;
-            buttonAdd.Click += buttonAdd_Click;
-            // 
-            // panelUse
-            // 
-            panelUse.Controls.Add(buttonUse);
-            panelUse.Dock = DockStyle.Bottom;
-            panelUse.Location = new Point(0, 224);
-            panelUse.Name = "panelUse";
-            panelUse.Padding = new Padding(12, 4, 12, 4);
-            panelUse.Size = new Size(400, 49);
-            panelUse.TabIndex = 2;
-            // 
-            // buttonUse
-            // 
-            buttonUse.Dock = DockStyle.Fill;
-            buttonUse.Location = new Point(12, 4);
-            buttonUse.Name = "buttonUse";
-            buttonUse.Size = new Size(376, 41);
-            buttonUse.TabIndex = 0;
-            buttonUse.Text = "Расходовать";
-            buttonUse.UseVisualStyleBackColor = true;
-            buttonUse.Click += buttonUse_Click;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(labelAmount);
-            panel1.Controls.Add(labelName);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(12);
-            panel1.Size = new Size(400, 224);
-            panel1.TabIndex = 3;
-            // 
-            // labelAmount
-            // 
-            labelAmount.Dock = DockStyle.Fill;
-            labelAmount.Location = new Point(12, 52);
-            labelAmount.Name = "labelAmount";
-            labelAmount.Size = new Size(376, 160);
-            labelAmount.TabIndex = 1;
-            labelAmount.Text = "label2";
-            labelAmount.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // labelName
-            // 
-            labelName.Dock = DockStyle.Top;
-            labelName.Location = new Point(12, 12);
-            labelName.Name = "labelName";
-            labelName.Size = new Size(376, 40);
-            labelName.TabIndex = 0;
-            labelName.Text = "label1";
-            labelName.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // FormSelectedMaterial
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(400, 385);
-            Controls.Add(panel1);
-            Controls.Add(panelUse);
-            Controls.Add(panelAdd);
-            Controls.Add(panelBottom);
+            ClientSize = new Size(402, 385);
+            Controls.Add(panelMain);
+            MinimumSize = new Size(420, 432);
             Name = "FormSelectedMaterial";
+            Padding = new Padding(4);
+            ShowIcon = false;
             Text = "Материал";
-            panelBottom.ResumeLayout(false);
+            panelMain.ResumeLayout(false);
+            panelFill.ResumeLayout(false);
+            panelTop.ResumeLayout(false);
+            panelUse.ResumeLayout(false);
             panelAdd.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numericUpDownAdd).EndInit();
-            panelUse.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            panelBottom.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
+        private Panel panelMain;
+        private Panel panelFill;
+        private Label labelAmount;
+        private Panel panelTop;
+        private Label labelName;
+        private Button buttonDelete;
+        private Panel panelUse;
+        private Button buttonUse;
+        private Panel panelAdd;
+        private NumericUpDown numericUpDownAdd;
+        private Button buttonAdd;
         private Panel panelBottom;
         private Button buttonEdit;
         private Button buttonHistory;
         private Button buttonBack;
-        private Panel panelAdd;
-        private NumericUpDown numericUpDownAdd;
-        private Button buttonAdd;
-        private Panel panelUse;
-        private Button buttonUse;
-        private Panel panel1;
-        private Label labelAmount;
-        private Label labelName;
     }
 }

@@ -26,7 +26,7 @@ namespace prodmatApp
                 Product product = (Product)prodMat;
 
                 labelName.Text = "[П] " + product.NameOfProduct;
-
+                labelName.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .2, 1);
                 // Расчитывает количество продукции
                 int amount = 0;
                 foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
@@ -41,6 +41,7 @@ namespace prodmatApp
                 Material material = (Material)prodMat;
 
                 labelName.Text = "[М] " + material.NameOfMaterial;
+                labelName.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .2, 1);
 
                 // Расчитывает количество материала
                 int amount = 0;

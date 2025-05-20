@@ -64,12 +64,13 @@ namespace prodmatApp
                 buttonOK.Enabled = false;
                 return;
             }
-            else if (textBoxMaterialName.Text.Trim().Length > 40)
+            else if (textBoxMaterialName.Text.Trim().Length > 30)
             {
-                errorProvider.SetError(buttonOK, "Название не может превышать 40 символов");
+                errorProvider.SetError(buttonOK, "Название не может превышать 30 символов");
                 buttonOK.Enabled = false;
                 return;
             }
+            errorProvider.Clear();
             buttonOK.Enabled = true;
         }
 

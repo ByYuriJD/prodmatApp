@@ -75,6 +75,7 @@
             ClientSize = new Size(417, 379);
             Controls.Add(tableLayoutPanel);
             Controls.Add(panel1);
+            MinimumSize = new Size(320, 120);
             Name = "FormReport";
             Text = "Отчет";
             panel1.ResumeLayout(false);

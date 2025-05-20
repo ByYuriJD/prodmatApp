@@ -34,7 +34,6 @@ namespace prodmatApp
             // Создает панель для каждого существующего материала
             foreach (Product product in main.GetProducts())
             {
-                productsFlowPanel.Controls.Clear();
                 MatProdPanel matProdPanel = new MatProdPanel(product, main);
                 productsFlowPanel.Controls.Add(matProdPanel);
 

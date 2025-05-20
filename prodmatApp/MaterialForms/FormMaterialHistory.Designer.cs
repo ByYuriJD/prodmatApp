@@ -113,6 +113,7 @@
             Controls.Add(tableLayoutPanel);
             Controls.Add(panelBottom);
             Controls.Add(panelTop);
+            MaximizeBox = false;
             MinimumSize = new Size(425, 500);
             Name = "FormMaterialHistory";
             Text = "История количества материала";

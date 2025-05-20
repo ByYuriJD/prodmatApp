@@ -28,6 +28,8 @@ namespace prodmatApp
             InitializeComponent();
             this.main = main;
 
+
+
             if (prodMat is Material)  // Объект - продукция
             {
                 material = (Material)prodMat;
@@ -73,14 +75,29 @@ namespace prodmatApp
             if (material != null) // Объект - материал
             {
                 FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
-                formSelectedMaterial.ShowDialog();
+                if (formSelectedMaterial.ShowDialog() == DialogResult.Abort)
+                {
+                    Dispose();
+                    return;
+                }
                 Update();
+                buttonName.Text = material.NameOfMaterial;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
             }
             else if (product != null) // Объект - продукция
             {
                 FormSelectedProduct formSelectedProduct = new FormSelectedProduct(product, main);
-                formSelectedProduct.ShowDialog();
+                if (formSelectedProduct.ShowDialog() == DialogResult.Abort)
+                {
+                    Dispose();
+                    return;
+                }
                 Update();
+                buttonName.Text = product.NameOfProduct;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                
             }
         }
 
@@ -90,6 +107,8 @@ namespace prodmatApp
         {
             if (material != null) // Объект - материал
             {
+                if (MessageBox.Show("Добавить " + material.AutoAmount + " материала?", "Добавление материала",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
                 WarehouseMaterial warehouseMaterial = new WarehouseMaterial
                 {
@@ -141,6 +160,8 @@ namespace prodmatApp
                 FormUseMaterial formUseMaterial = new FormUseMaterial(material, main);
                 if (formUseMaterial.ShowDialog() == DialogResult.OK)
                 {
+                    // Проверяет достаточно ли материала и спрашивает пользователю стоит продолжить если нехватает
+                    if (!main.ContinueMaterialUsage([(int)formUseMaterial.numericUpDown1.Value], [material])) return;
                     main.AddDB(new WarehouseMaterial
                     {
                         IdMaterial = material.Id,
@@ -153,13 +174,17 @@ namespace prodmatApp
             }
             else if (product != null) // Объект - продукция
             {
+                if (MessageBox.Show("Расходовать 1 продукцию?", "Расходование продукции", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                // Проверяет достаточно ли продукции и спрашивает пользователю стоит продолжить если нехватает
+                if (!main.ContinueProductUsage(1, product)) return;
 
                 WarehouseProduct warehouseProduct = new WarehouseProduct
                 {
                     IdProduct = product.Id,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = false,
-                    Amount = (int)1,
+                    Amount = 1,
                     IsCanceled = false
                 };
                 main.AddDB(warehouseProduct);

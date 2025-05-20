@@ -47,6 +47,16 @@ namespace prodmatApp.ProductForms
                 // Пользователь выбрал "Подтвердить" на форме создания продукции
                 if (formProductCreation.ShowDialog() == DialogResult.OK)
                 {
+                    List<int> amounts = new List<int>();
+                    List<Material> materials = new List<Material>();
+                    foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
+                    {
+                        amounts.Add((int)materialPanel.numericUpDownAmount.Value);
+                        materials.Add(materialPanel.material);
+                    }
+
+                    if (!main.ContinueMaterialUsage(amounts.ToArray(), materials.ToArray())) DialogResult = DialogResult.Cancel;
+
 
                     // Добавляет операцию создания продукции в БД
                     main.AddDB(new WarehouseProduct
