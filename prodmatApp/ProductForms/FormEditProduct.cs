@@ -36,6 +36,8 @@ namespace prodmatApp
                 trackBarColour.Value = 0;
                 trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(0, .4, 1);
                 Text = "Новая продукция";
+                buttonTemplate.Enabled = false;
+                buttonTemplate.Text = "Создание шаблона доступно после добавления";
                 ValidateForm();
                 return;
             }
@@ -66,7 +68,7 @@ namespace prodmatApp
                 // Добавляет операцию создания продукции в БД с параметром isTemplateOnly
                 main.AddDB(new WarehouseProduct
                 {
-                    Amount = (int)formProductCreation.numericUpDown1.Value,
+                    Amount = (int)formProductCreation.numericUpDown.Value,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = true,
                     IdProduct = product.Id,

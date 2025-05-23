@@ -35,7 +35,7 @@ namespace prodmatApp.ProductForms
                 // Имеется шаблон
                 if (template != null)
                 {
-                    numericUpDown1.Value = template.Amount;
+                    numericUpDown.Value = (decimal)template.Amount;
 
                     // Добавляет материалы
                     foreach (WarehouseMaterial warehouseMaterial in template.WarehouseMaterials)
@@ -45,6 +45,7 @@ namespace prodmatApp.ProductForms
 
                         tableLayoutPanel.Controls.Add(materialPanel);
                         materials.Add(materialPanel);
+                        materialPanel.Dock = DockStyle.Top;
                     }
                 }
             }
@@ -61,6 +62,8 @@ namespace prodmatApp.ProductForms
         // Метод удаления панели материала
         public void removePanel(ProductCreationMaterialPanel materialPanel)
         {
+            if (MessageBox.Show("Исключить материал: \"" + materialPanel.material.NameOfMaterial + "\"?",
+                "Исключение материала", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             if (materials.Contains(materialPanel))
             {
                 materials.Remove(materialPanel);
@@ -82,6 +85,7 @@ namespace prodmatApp.ProductForms
                     ProductCreationMaterialPanel materialPanel = new ProductCreationMaterialPanel(this,formChoice.chosenMaterial);
                     tableLayoutPanel.Controls.Add(materialPanel);
                     materials.Add(materialPanel);
+                    materialPanel.Dock = DockStyle.Top;
                 }
             }
         }

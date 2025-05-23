@@ -26,6 +26,7 @@ namespace prodmatApp
         public MatProdPanel(Object prodMat, FormMain main)
         {
             InitializeComponent();
+
             this.main = main;
 
 
@@ -33,16 +34,57 @@ namespace prodmatApp
             if (prodMat is Material)  // Объект - продукция
             {
                 material = (Material)prodMat;
-                buttonName.Text = material.NameOfMaterial;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
             }
             else if (prodMat is Product) // Объект - материал
             {
                 product = (Product)prodMat;
+            }
+            UpdatePanel();
+        }
+
+        private void UpdatePanel()
+        {
+            if (material != null)
+            {
+                buttonName.Text = material.NameOfMaterial;
+                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                if (main.getAmount(material) < 0)
+                {
+                    errorProvider.SetError(buttonName, "Отрицательное количество материала");
+                }
+                else
+                {
+                    errorProvider.Clear();
+                }
+            }
+            else if (product != null)
+            {
                 buttonName.Text = product.NameOfProduct;
                 buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                if (main.getAmount(product) < 0)
+                {
+                    errorProvider.SetError(buttonName, "Отрицательное количество продукции");
+                }
+                else
+                {
+                    errorProvider.Clear();
+                }
+            }
+        
+            if (TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width > 176 &&
+                TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width < 191)
+            {
+                buttonName.Font = new Font("Segoe UI", 8);
+            }
+            else if (TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width < 215)
+            {
+                buttonName.Font = new Font("Segoe UI", 7);
+            }
+            else
+            {
+                buttonName.Font = new Font("Segoe UI", 6);
             }
         }
         // Вид панели
@@ -81,9 +123,7 @@ namespace prodmatApp
                     return;
                 }
                 Update();
-                buttonName.Text = material.NameOfMaterial;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                UpdatePanel();
             }
             else if (product != null) // Объект - продукция
             {
@@ -94,10 +134,8 @@ namespace prodmatApp
                     return;
                 }
                 Update();
-                buttonName.Text = product.NameOfProduct;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
-                
+                UpdatePanel();
+
             }
         }
 
@@ -115,7 +153,7 @@ namespace prodmatApp
                     IdMaterial = material.Id,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = true,
-                    Amount = (int)material.AutoAmount,
+                    Amount = (float)material.AutoAmount,
                     IsCanceled = false
                 };
                 main.AddDB(warehouseMaterial);
@@ -127,7 +165,7 @@ namespace prodmatApp
                 {
                     main.AddDB(new WarehouseProduct
                     {
-                        Amount = (int)formProductCreation.numericUpDown1.Value,
+                        Amount = (float)formProductCreation.numericUpDown.Value,
                         DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                         IsAdded = true,
                         IdProduct = product.Id,
@@ -140,7 +178,7 @@ namespace prodmatApp
                         main.AddDB(new WarehouseMaterial
                         {
                             DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
-                            Amount = (int)materialPanel.numericUpDownAmount.Value,
+                            Amount = (float)materialPanel.numericUpDownAmount.Value,
                             IsAdded = false,
                             IsCanceled = false,
                             IsMultipliedByProduct = materialPanel.checkBoxMultiply.Checked,
@@ -161,13 +199,13 @@ namespace prodmatApp
                 if (formUseMaterial.ShowDialog() == DialogResult.OK)
                 {
                     // Проверяет достаточно ли материала и спрашивает пользователю стоит продолжить если нехватает
-                    if (!main.ContinueMaterialUsage([(int)formUseMaterial.numericUpDown1.Value], [material])) return;
+                    if (!main.ContinueMaterialUsage([(float)formUseMaterial.numericUpDown1.Value], [material])) return;
                     main.AddDB(new WarehouseMaterial
                     {
                         IdMaterial = material.Id,
                         DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                         IsAdded = false,
-                        Amount = (int)formUseMaterial.numericUpDown1.Value,
+                        Amount = (float)formUseMaterial.numericUpDown1.Value,
                         IsCanceled = false
                     });
                 }

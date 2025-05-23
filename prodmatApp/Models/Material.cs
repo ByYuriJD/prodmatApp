@@ -9,7 +9,7 @@ public partial class Material
 
     public string NameOfMaterial { get; set; } = null!;
 
-    public int AutoAmount { get; set; }
+    public float AutoAmount { get; set; }
 
     public short Hue { get; set; }
 

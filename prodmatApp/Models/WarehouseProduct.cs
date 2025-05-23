@@ -7,11 +7,11 @@ public partial class WarehouseProduct
 {
     public int Id { get; set; }
 
-    public int? IdProduct { get; set; }
+    public int IdProduct { get; set; }
 
     public bool IsAdded { get; set; }
 
-    public int Amount { get; set; }
+    public float Amount { get; set; }
 
     public bool IsCanceled { get; set; }
 
@@ -19,7 +19,7 @@ public partial class WarehouseProduct
 
     public DateOnly? DateOfAddition { get; set; }
 
-    public virtual Product? IdProductNavigation { get; set; }
+    public virtual Product IdProductNavigation { get; set; } = null!;
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 

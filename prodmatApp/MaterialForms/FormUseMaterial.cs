@@ -47,11 +47,11 @@ namespace prodmatApp.ProductForms
                 // Пользователь выбрал "Подтвердить" на форме создания продукции
                 if (formProductCreation.ShowDialog() == DialogResult.OK)
                 {
-                    List<int> amounts = new List<int>();
+                    List<float> amounts = new List<float>();
                     List<Material> materials = new List<Material>();
                     foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
                     {
-                        amounts.Add((int)materialPanel.numericUpDownAmount.Value);
+                        amounts.Add((float)materialPanel.numericUpDownAmount.Value);
                         materials.Add(materialPanel.material);
                     }
 
@@ -61,7 +61,7 @@ namespace prodmatApp.ProductForms
                     // Добавляет операцию создания продукции в БД
                     main.AddDB(new WarehouseProduct
                     {
-                        Amount = (int)formProductCreation.numericUpDown1.Value,
+                        Amount = (float)formProductCreation.numericUpDown.Value,
                         DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                         IsAdded = true,
                         IdProduct = formMatProdChoice.chosenProduct.Id,
@@ -77,7 +77,7 @@ namespace prodmatApp.ProductForms
                         main.AddDB(new WarehouseMaterial
                         {
                             DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
-                            Amount = (int)materialPanel.numericUpDownAmount.Value,
+                            Amount = (float)materialPanel.numericUpDownAmount.Value,
                             IsAdded = false,
                             IsCanceled = false,
                             IsMultipliedByProduct = materialPanel.checkBoxMultiply.Checked,

@@ -64,12 +64,12 @@ namespace prodmatApp
             UpdateStyles();
         }
 
-        public bool ContinueMaterialUsage(int[] amounts, Material[] materials)
+        public bool ContinueMaterialUsage(float[] amounts, Material[] materials)
         {
             List<string> materialsInvalid = new List<string>();
             for (int i = 0; i < materials.Length; i++)
             {
-                int materialTotal = getAmount(materials[i]);
+                float materialTotal = getAmount(materials[i]);
 
                 if (materialTotal - amounts[i] >= 0) continue;
 
@@ -82,19 +82,19 @@ namespace prodmatApp
             return MessageBox.Show("Нодостаточно материалов: " + string.Join(", ",materialsInvalid) + ".\nПродолжить?",
                 "Нодостаточно материала", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
-        public bool ContinueProductUsage(int amount, Product product)
+        public bool ContinueProductUsage(float amount, Product product)
         {
-            int productTotal = getAmount(product);
+            float productTotal = getAmount(product);
             if (productTotal - amount >= 0) return true;
             return MessageBox.Show("Нодостаточно продукции: " + product.NameOfProduct + ".\nПродолжить?",
                 "Нодостаточно продукции", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
 
-        public int getAmount(Material material)
+        public float getAmount(Material material)
         {
 
             // Кол-во материала на складе
-            int materialTotal = 0;
+            float materialTotal = 0;
 
             // Все операции
             foreach (WarehouseMaterial warehouseMaterial in material.WarehouseMaterials)
@@ -114,9 +114,9 @@ namespace prodmatApp
             }
             return materialTotal;
         }
-        public int getAmount(Product product)
+        public float getAmount(Product product)
         {
-            int productTotal = 0;
+            float productTotal = 0;
             // Все операции
             foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
             {
@@ -243,13 +243,17 @@ namespace prodmatApp
         private void buttonMat_Click(object sender, EventArgs e)
         {
             FormMaterials formMaterials = new FormMaterials(this);
+            Hide();
             formMaterials.ShowDialog();
+            Show();
         }
         // Нажатие на кнопку продукция
         private void buttonProduct_Click(object sender, EventArgs e)
         {
             FormProducts formProduct = new FormProducts(this);
+            Hide();
             formProduct.ShowDialog();
+            Show();
         }
 
         // Нажатие на кнопку последний материал
@@ -263,7 +267,9 @@ namespace prodmatApp
             }
             FormSelectedMaterial formSelectedMaterial = new
                 FormSelectedMaterial(lastMat.IdMaterialNavigation, this);
+            Hide();
             formSelectedMaterial.ShowDialog();
+            Show();
         }
 
         // Нажатие на кнопку последняя продукция
@@ -277,7 +283,9 @@ namespace prodmatApp
             }
             FormSelectedProduct formSelectedProduct = new
                 FormSelectedProduct(lastProd.IdProductNavigation, this);
+            Hide();
             formSelectedProduct.ShowDialog();
+            Show();
         }
 
         // Нажатие на кнопку отчет

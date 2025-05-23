@@ -27,7 +27,7 @@ namespace prodmatApp
             InitializeComponent();
             this.main = main;
             this.material = material;
-            numericUpDownAdd.Value = material.AutoAmount;
+            numericUpDownAdd.Value = (decimal)material.AutoAmount;
             labelName.Text = material.NameOfMaterial;
 
             buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
@@ -50,7 +50,7 @@ namespace prodmatApp
             if (material.WarehouseMaterials.Count > 0)
             {
                 // Кол-во материала на складе
-                int materialTotal = main.getAmount(material);
+                float materialTotal = main.getAmount(material);
                 //Присваивание значения
                 labelAmount.Text = materialTotal.ToString();
             }
@@ -68,13 +68,13 @@ namespace prodmatApp
                 // Обновление материала с информацией введенной ползователем
                 material.NameOfMaterial = formEditMaterials.textBoxMaterialName.Text;
                 material.Hue = (short)formEditMaterials.trackBarColour.Value;
-                material.AutoAmount = (int)formEditMaterials.numericStandartAmount.Value;
+                material.AutoAmount = (float)formEditMaterials.numericStandartAmount.Value;
 
                 // Обнавление материала
                 main.UpdateDB(material);
 
                 // Обнавление вида формы
-                numericUpDownAdd.Value = material.AutoAmount;
+                numericUpDownAdd.Value = (decimal)material.AutoAmount;
                 labelName.Text = material.NameOfMaterial;
 
                 UpdateAmount();
@@ -108,7 +108,7 @@ namespace prodmatApp
                 IdMaterial = material.Id,
                 DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                 IsAdded = true,
-                Amount = (int)numericUpDownAdd.Value,
+                Amount = (float)numericUpDownAdd.Value,
                 IsCanceled = false
             };
             // Добавление опреации в БД
@@ -126,13 +126,13 @@ namespace prodmatApp
             if (formUseMaterial.ShowDialog() == DialogResult.OK)
             {
                 // Проверяет достаточно ли материала и спрашивает пользователю стоит продолжить если нехватает
-                if (!main.ContinueMaterialUsage([(int)formUseMaterial.numericUpDown1.Value], [material])) return;
+                if (!main.ContinueMaterialUsage([(float)formUseMaterial.numericUpDown1.Value], [material])) return;
                 main.AddDB(new WarehouseMaterial
                 {
                     IdMaterial = material.Id,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = false,
-                    Amount = (int)formUseMaterial.numericUpDown1.Value,
+                    Amount = (float)formUseMaterial.numericUpDown1.Value,
                     IsCanceled = false
                 });
             }

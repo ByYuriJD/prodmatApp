@@ -62,6 +62,7 @@ namespace prodmatApp
             // Показывает форму редактирования матрериала с аргументом null
             FormEditMaterial formEditMaterials = new FormEditMaterial();
 
+            Hide();
             // Пользователь выбрал "Подтвердить"
             if (formEditMaterials.ShowDialog() == DialogResult.OK)
             {
@@ -77,6 +78,7 @@ namespace prodmatApp
                 // Обнавление меню
                 UpdatePanels();
             }
+            Show();
 
         }
     }

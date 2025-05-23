@@ -77,10 +77,10 @@
             // 
             // numericStandartAmount
             // 
+            numericStandartAmount.DecimalPlaces = 2;
             numericStandartAmount.Dock = DockStyle.Fill;
             numericStandartAmount.Location = new Point(4, 8);
             numericStandartAmount.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericStandartAmount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericStandartAmount.Name = "numericStandartAmount";
             numericStandartAmount.Size = new Size(187, 27);
             numericStandartAmount.TabIndex = 1;

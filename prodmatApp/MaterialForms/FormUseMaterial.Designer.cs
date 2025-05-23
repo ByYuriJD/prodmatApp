@@ -62,10 +62,10 @@
             // 
             // numericUpDown1
             // 
+            numericUpDown1.DecimalPlaces = 2;
             numericUpDown1.Dock = DockStyle.Right;
             numericUpDown1.Location = new Point(200, 0);
             numericUpDown1.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(146, 27);
             numericUpDown1.TabIndex = 4;
@@ -112,10 +112,12 @@
             Controls.Add(panel1);
             Controls.Add(buttonNoProduct);
             Controls.Add(buttonBack);
+            MaximizeBox = false;
             MinimumSize = new Size(380, 210);
             Name = "FormUseMaterial";
             Padding = new Padding(8);
-            Text = "Расходавание материала";
+            ShowIcon = false;
+            Text = "Расходование материала";
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);

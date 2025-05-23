@@ -21,7 +21,7 @@ namespace prodmatApp
         private Product product;
         private FormMatProdChoice formChoice;
         //Конструктор
-        public MatProdChoicePanel(Object prodMat, FormMatProdChoice formChoice)
+        public MatProdChoicePanel(Object prodMat, FormMatProdChoice formChoice, FormMain main)
         {
             InitializeComponent();
             this.formChoice = formChoice;
@@ -31,12 +31,27 @@ namespace prodmatApp
                 material = (Material)prodMat;
                 buttonChoose.Text = material.NameOfMaterial;
                 buttonChoose.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
+                labelAmount.Text = main.getAmount(material).ToString();
             }
             else if (prodMat is Product) // Объект - продукция
             {
                 product = (Product)prodMat;
                 buttonChoose.Text = product.NameOfProduct;
                 buttonChoose.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
+                labelAmount.Text = main.getAmount(product).ToString();
+            }
+            if (TextRenderer.MeasureText(buttonChoose.Text, buttonChoose.Font).Width > 176 &&
+                TextRenderer.MeasureText(buttonChoose.Text, buttonChoose.Font).Width < 191)
+            {
+                buttonChoose.Font = new Font("Segoe UI", 8);
+            }
+            else if (TextRenderer.MeasureText(buttonChoose.Text, buttonChoose.Font).Width < 215)
+            {
+                buttonChoose.Font = new Font("Segoe UI", 7);
+            }
+            else
+            {
+                buttonChoose.Font = new Font("Segoe UI", 6);
             }
         }
 

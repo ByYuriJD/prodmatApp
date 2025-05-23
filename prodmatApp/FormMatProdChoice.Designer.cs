@@ -41,7 +41,7 @@
             panel1.Location = new Point(0, 303);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(16, 8, 16, 8);
-            panel1.Size = new Size(589, 57);
+            panel1.Size = new Size(622, 57);
             panel1.TabIndex = 0;
             // 
             // buttonBack
@@ -50,17 +50,18 @@
             buttonBack.Dock = DockStyle.Fill;
             buttonBack.Location = new Point(16, 8);
             buttonBack.Name = "buttonBack";
-            buttonBack.Size = new Size(557, 41);
+            buttonBack.Size = new Size(590, 41);
             buttonBack.TabIndex = 0;
             buttonBack.Text = "Назад";
             buttonBack.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel
             // 
+            flowLayoutPanel.AutoScroll = true;
             flowLayoutPanel.Dock = DockStyle.Fill;
             flowLayoutPanel.Location = new Point(0, 0);
             flowLayoutPanel.Name = "flowLayoutPanel";
-            flowLayoutPanel.Size = new Size(589, 303);
+            flowLayoutPanel.Size = new Size(622, 303);
             flowLayoutPanel.TabIndex = 1;
             // 
             // FormMatProdChoice
@@ -68,11 +69,12 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(589, 360);
+            ClientSize = new Size(622, 360);
             Controls.Add(flowLayoutPanel);
             Controls.Add(panel1);
             Name = "FormMatProdChoice";
             Text = "Выбор";
+            TopMost = true;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }

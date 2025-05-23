@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             panelTop = new Panel();
-            numericUpDown1 = new NumericUpDown();
+            numericUpDown = new NumericUpDown();
             labelProductName = new Label();
             panelBottom = new Panel();
             buttonOk = new Button();
@@ -38,14 +38,14 @@
             buttonAdd = new Button();
             tableLayoutPanel = new TableLayoutPanel();
             panelTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown).BeginInit();
             panelBottom.SuspendLayout();
             panelAdd.SuspendLayout();
             SuspendLayout();
             // 
             // panelTop
             // 
-            panelTop.Controls.Add(numericUpDown1);
+            panelTop.Controls.Add(numericUpDown);
             panelTop.Controls.Add(labelProductName);
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
@@ -54,16 +54,16 @@
             panelTop.Size = new Size(399, 43);
             panelTop.TabIndex = 0;
             // 
-            // numericUpDown1
+            // numericUpDown
             // 
-            numericUpDown1.Dock = DockStyle.Fill;
-            numericUpDown1.Location = new Point(188, 8);
-            numericUpDown1.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(203, 27);
-            numericUpDown1.TabIndex = 1;
-            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown.DecimalPlaces = 2;
+            numericUpDown.Dock = DockStyle.Fill;
+            numericUpDown.Location = new Point(188, 8);
+            numericUpDown.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            numericUpDown.Name = "numericUpDown";
+            numericUpDown.Size = new Size(203, 27);
+            numericUpDown.TabIndex = 1;
+            numericUpDown.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // labelProductName
             // 
@@ -152,10 +152,13 @@
             Controls.Add(panelAdd);
             Controls.Add(panelBottom);
             Controls.Add(panelTop);
+            MaximizeBox = false;
             Name = "FormProductCreation";
+            ShowIcon = false;
             Text = "Создание продукции";
+            TopMost = true;
             panelTop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown).EndInit();
             panelBottom.ResumeLayout(false);
             panelAdd.ResumeLayout(false);
             ResumeLayout(false);
@@ -171,6 +174,6 @@
         private Panel panelAdd;
         private TableLayoutPanel tableLayoutPanel;
         private Button buttonAdd;
-        public NumericUpDown numericUpDown1;
+        public NumericUpDown numericUpDown;
     }
 }

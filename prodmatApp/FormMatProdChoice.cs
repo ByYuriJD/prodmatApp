@@ -31,15 +31,16 @@ namespace prodmatApp
             {
                 foreach (Material material in main.GetMaterials())
                 {
-                    MatProdChoicePanel choicePanel = new MatProdChoicePanel(material, this);
+                    MatProdChoicePanel choicePanel = new MatProdChoicePanel(material, this,main);
                     flowLayoutPanel.Controls.Add(choicePanel);
+                    choicePanel.Dock = DockStyle.Top;
                 }
             }
             else // Выбирается продукция
             {
                 foreach(Product product in main.GetProducts())
                 {
-                    MatProdChoicePanel choicePanel = new MatProdChoicePanel(product,this);
+                    MatProdChoicePanel choicePanel = new MatProdChoicePanel(product,this,main);
                     flowLayoutPanel.Controls.Add(choicePanel);
                 }
             }

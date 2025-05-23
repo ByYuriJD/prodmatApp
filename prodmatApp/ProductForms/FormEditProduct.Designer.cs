@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             textBoxProductName = new TextBox();
-            buttonTemplate = new Button();
             panel2 = new Panel();
             panel3 = new Panel();
             trackBarColour = new TrackBar();
@@ -40,6 +39,7 @@
             buttonOK = new Button();
             buttonBack = new Button();
             errorProvider = new ErrorProvider(components);
+            buttonTemplate = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarColour).BeginInit();
@@ -57,17 +57,6 @@
             textBoxProductName.Size = new Size(378, 27);
             textBoxProductName.TabIndex = 1;
             textBoxProductName.TextChanged += textBoxProductName_TextChanged;
-            // 
-            // buttonTemplate
-            // 
-            buttonTemplate.Dock = DockStyle.Top;
-            buttonTemplate.Location = new Point(8, 35);
-            buttonTemplate.Name = "buttonTemplate";
-            buttonTemplate.Size = new Size(378, 37);
-            buttonTemplate.TabIndex = 2;
-            buttonTemplate.Text = "Создать шаблон";
-            buttonTemplate.UseVisualStyleBackColor = true;
-            buttonTemplate.Click += buttonTemplate_Click;
             // 
             // panel2
             // 
@@ -158,6 +147,17 @@
             // 
             errorProvider.ContainerControl = this;
             // 
+            // buttonTemplate
+            // 
+            buttonTemplate.Dock = DockStyle.Top;
+            buttonTemplate.Location = new Point(8, 35);
+            buttonTemplate.Name = "buttonTemplate";
+            buttonTemplate.Size = new Size(378, 37);
+            buttonTemplate.TabIndex = 2;
+            buttonTemplate.Text = "Создать шаблон";
+            buttonTemplate.UseVisualStyleBackColor = true;
+            buttonTemplate.Click += buttonTemplate_Click;
+            // 
             // FormEditProduct
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -188,7 +188,6 @@
         #endregion
 
         public TextBox textBoxProductName;
-        private Button buttonTemplate;
         private Panel panel2;
         private Panel panel3;
         public TrackBar trackBarColour;
@@ -198,5 +197,6 @@
         private Panel panel1;
         private Button buttonOK;
         private ErrorProvider errorProvider;
+        private Button buttonTemplate;
     }
 }

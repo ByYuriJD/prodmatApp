@@ -37,20 +37,22 @@
             // productsFlowPanel
             // 
             productsFlowPanel.AutoScroll = true;
+            productsFlowPanel.BackColor = Color.FromArgb(242, 243, 244);
             productsFlowPanel.Dock = DockStyle.Fill;
-            productsFlowPanel.Location = new Point(0, 0);
+            productsFlowPanel.Location = new Point(4, 4);
             productsFlowPanel.Name = "productsFlowPanel";
-            productsFlowPanel.Size = new Size(629, 380);
+            productsFlowPanel.Padding = new Padding(4);
+            productsFlowPanel.Size = new Size(684, 260);
             productsFlowPanel.TabIndex = 3;
             // 
             // panelBottom
             // 
             panelBottom.Controls.Add(buttonAdd);
             panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(0, 380);
+            panelBottom.Location = new Point(4, 264);
             panelBottom.Name = "panelBottom";
             panelBottom.Padding = new Padding(30, 10, 30, 10);
-            panelBottom.Size = new Size(629, 70);
+            panelBottom.Size = new Size(684, 70);
             panelBottom.TabIndex = 2;
             // 
             // buttonAdd
@@ -58,21 +60,24 @@
             buttonAdd.Dock = DockStyle.Fill;
             buttonAdd.Location = new Point(30, 10);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(569, 50);
+            buttonAdd.Size = new Size(624, 50);
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "Добавить продукцию";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += buttonAdd_Click;
             // 
-            // FormProduct
+            // FormProducts
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(629, 450);
+            ClientSize = new Size(692, 338);
             Controls.Add(productsFlowPanel);
             Controls.Add(panelBottom);
-            Name = "FormProduct";
+            MaximizeBox = false;
+            Name = "FormProducts";
+            Padding = new Padding(4);
+            ShowIcon = false;
             Text = "Выбор продукции";
             panelBottom.ResumeLayout(false);
             ResumeLayout(false);

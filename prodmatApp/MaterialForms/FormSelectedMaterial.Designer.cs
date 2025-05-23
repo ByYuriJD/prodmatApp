@@ -150,6 +150,7 @@
             // 
             // numericUpDownAdd
             // 
+            numericUpDownAdd.DecimalPlaces = 2;
             numericUpDownAdd.Dock = DockStyle.Fill;
             numericUpDownAdd.Location = new Point(8, 4);
             numericUpDownAdd.Margin = new Padding(5);

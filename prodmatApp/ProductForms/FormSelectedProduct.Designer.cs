@@ -129,6 +129,7 @@
             // 
             // numericUpDownUse
             // 
+            numericUpDownUse.DecimalPlaces = 2;
             numericUpDownUse.Dock = DockStyle.Fill;
             numericUpDownUse.Location = new Point(8, 4);
             numericUpDownUse.Margin = new Padding(5);

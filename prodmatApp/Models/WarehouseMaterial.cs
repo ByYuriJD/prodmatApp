@@ -13,7 +13,7 @@ public partial class WarehouseMaterial
 
     public bool IsAdded { get; set; }
 
-    public int Amount { get; set; }
+    public float Amount { get; set; }
 
     public bool? IsMultipliedByProduct { get; set; }
 

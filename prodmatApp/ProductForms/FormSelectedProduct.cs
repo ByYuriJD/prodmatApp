@@ -49,7 +49,7 @@ namespace prodmatApp
             if (product.WarehouseProducts.Count > 0)
             {
                 // Кол-во продукции на складе
-                int productTotal = main.getAmount(product);
+                float productTotal = main.getAmount(product);
 
                 //Присваивание значения
                 labelAmount.Text = productTotal.ToString();
@@ -106,10 +106,19 @@ namespace prodmatApp
             // Пользователь выбрал "Подтвердить" на форме создания продукции
             if (formProductCreation.ShowDialog() == DialogResult.OK)
             {
+                List<float> amounts = new List<float>();
+                List<Material> materials = new List<Material>();
+                foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
+                {
+                    amounts.Add((float)materialPanel.numericUpDownAmount.Value);
+                    materials.Add(materialPanel.material);
+                }
+                if (!main.ContinueMaterialUsage(amounts.ToArray(), materials.ToArray())) return;
+
                 // Добавляет операцию создания продукции в БД
                 main.AddDB(new WarehouseProduct
                 {
-                    Amount = (int)formProductCreation.numericUpDown1.Value,
+                    Amount = (float)formProductCreation.numericUpDown.Value,
                     DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                     IsAdded = true,
                     IdProduct = product.Id,
@@ -118,13 +127,14 @@ namespace prodmatApp
                 // Получает данную операцию в БД
                 WarehouseProduct warehouseProduct = main.GetLastWarehouseProduct(true);
 
+
                 // Добавлят операцию расходования материла для каждого выбранного материала
                 foreach (ProductCreationMaterialPanel materialPanel in formProductCreation.materials)
                 {
                     main.AddDB(new WarehouseMaterial
                     {
                         DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
-                        Amount = (int)materialPanel.numericUpDownAmount.Value,
+                        Amount = (float)materialPanel.numericUpDownAmount.Value,
                         IsAdded = false,
                         IsCanceled = false,
                         IsMultipliedByProduct = materialPanel.checkBoxMultiply.Checked,
@@ -148,7 +158,7 @@ namespace prodmatApp
                 IdProduct = product.Id,
                 DateOfAddition = DateOnly.FromDateTime(DateTime.Now),
                 IsAdded = false,
-                Amount = (int)numericUpDownUse.Value,
+                Amount = (float)numericUpDownUse.Value,
                 IsCanceled = false
             };
             // Добавление опреации в БД

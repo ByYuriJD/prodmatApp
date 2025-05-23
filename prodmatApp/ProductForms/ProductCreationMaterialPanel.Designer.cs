@@ -73,11 +73,11 @@
             // 
             // numericUpDownAmount
             // 
+            numericUpDownAmount.DecimalPlaces = 2;
             numericUpDownAmount.Dock = DockStyle.Right;
             numericUpDownAmount.Location = new Point(131, 4);
             numericUpDownAmount.Margin = new Padding(8);
             numericUpDownAmount.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
-            numericUpDownAmount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownAmount.Name = "numericUpDownAmount";
             numericUpDownAmount.Size = new Size(129, 27);
             numericUpDownAmount.TabIndex = 1;

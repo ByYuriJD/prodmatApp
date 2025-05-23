@@ -28,7 +28,7 @@ namespace prodmatApp
                 labelName.Text = "[П] " + product.NameOfProduct;
                 labelName.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .2, 1);
                 // Расчитывает количество продукции
-                int amount = 0;
+                float amount = 0;
                 foreach (WarehouseProduct warehouseProduct in product.WarehouseProducts)
                 {
                     if (warehouseProduct.IsCanceled || warehouseProduct.IsTemplateOnly) continue;
@@ -44,7 +44,7 @@ namespace prodmatApp
                 labelName.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .2, 1);
 
                 // Расчитывает количество материала
-                int amount = 0;
+                float amount = 0;
                 foreach (WarehouseMaterial warehouseMaterial in material.WarehouseMaterials)
                 {
                     if (warehouseMaterial.IsCanceled || warehouseMaterial.IdAddedProductNavigation != null &&

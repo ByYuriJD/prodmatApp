@@ -20,7 +20,7 @@ namespace prodmatApp.ProductForms
         private FormProductCreation FormProductCreation;
         
         // Конструктор
-        public ProductCreationMaterialPanel(FormProductCreation formProductCreation, Material material, int amount = 1, bool isMultipliedByProduct = true)
+        public ProductCreationMaterialPanel(FormProductCreation formProductCreation, Material material, float amount = 1, bool isMultipliedByProduct = true)
         {
             InitializeComponent();
 
@@ -29,7 +29,7 @@ namespace prodmatApp.ProductForms
                 this.material = material;
                 this.FormProductCreation = formProductCreation;
                 labelName.Text = material.NameOfMaterial;
-                numericUpDownAmount.Value = amount;
+                numericUpDownAmount.Value = (decimal)amount;
                 checkBoxMultiply.Checked = isMultipliedByProduct;
             }
             catch(ArgumentOutOfRangeException e)

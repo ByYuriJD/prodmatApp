@@ -40,7 +40,7 @@ namespace prodmatApp
             // Заполнение данными существующего материала
             this.material = material;
 
-            numericStandartAmount.Value = material.AutoAmount;
+            numericStandartAmount.Value = (decimal)material.AutoAmount;
             textBoxMaterialName.Text = material.NameOfMaterial;
             trackBarColour.Value = material.Hue;
             trackBarColour.BackColor = ColourFromHSV.ColorFromHSV(trackBarColour.Value, .4, 1);
