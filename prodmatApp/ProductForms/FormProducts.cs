@@ -21,6 +21,8 @@ namespace prodmatApp
         // Конструктор
         public FormProducts(FormMain main)
         {
+
+            base.DoubleBuffered = true;
             InitializeComponent();
             this.main = main;
             UpdatePanels();
@@ -35,10 +37,37 @@ namespace prodmatApp
             foreach (Product product in main.GetProducts())
             {
                 MatProdPanel matProdPanel = new MatProdPanel(product, main);
+                matProdPanel.VisibleChanged += panel_VisiblilyChanged;
+                matProdPanel.Disposed += UpdatePanels;
                 productsFlowPanel.Controls.Add(matProdPanel);
 
             }
         }
+        private void UpdatePanels(object? sender, EventArgs e)
+        {
+            // Удаляет существующие элементы
+            productsFlowPanel.Controls.Clear();
+
+            // Создает панель для каждого существующего материала
+            foreach (Product product in main.GetProducts())
+            {
+                MatProdPanel matProdPanel = new MatProdPanel(product, main);
+                matProdPanel.VisibleChanged += panel_VisiblilyChanged;
+                matProdPanel.Disposed += UpdatePanels;
+                productsFlowPanel.Controls.Add(matProdPanel);
+
+            }
+        }
+
+        private void panel_VisiblilyChanged(object sender, EventArgs e)
+        {
+            if (sender is MatProdPanel)
+            {
+                MatProdPanel panel = (MatProdPanel)sender;
+                Visible = panel.Visible;
+            }
+        }
+
 
         // Нажатие на кнопку создания новой продукции
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -46,6 +75,7 @@ namespace prodmatApp
             // Показывает форму редактирования продукции с аргументом null
             FormEditProduct formEditProduct = new FormEditProduct(main);
 
+            Hide();
             // Пользователь выбрал "Подтвердить"
             if (formEditProduct.ShowDialog() == DialogResult.OK)
             {
@@ -61,7 +91,7 @@ namespace prodmatApp
                 // Обнавление меню
                 UpdatePanels();
             }
-
+            Show();
 
         }
     }

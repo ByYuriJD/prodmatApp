@@ -226,9 +226,11 @@
             BackColor = Color.White;
             ClientSize = new Size(402, 385);
             Controls.Add(panelMain);
+            MaximizeBox = false;
             MinimumSize = new Size(420, 432);
             Name = "FormSelectedProduct";
             Padding = new Padding(4);
+            ShowIcon = false;
             Text = "Продукция";
             panelMain.ResumeLayout(false);
             panel1.ResumeLayout(false);

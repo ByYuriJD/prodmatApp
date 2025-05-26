@@ -21,6 +21,7 @@ namespace prodmatApp
         private Material material;
         private Product product;
         private FormMain main;
+        private Form parentForm;
 
         // Конструктор
         public MatProdPanel(Object prodMat, FormMain main)
@@ -28,7 +29,6 @@ namespace prodmatApp
             InitializeComponent();
 
             this.main = main;
-
 
 
             if (prodMat is Material)  // Объект - продукция
@@ -72,7 +72,7 @@ namespace prodmatApp
                     errorProvider.Clear();
                 }
             }
-        
+
             if (TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width > 176 &&
                 TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width < 191)
             {
@@ -90,6 +90,8 @@ namespace prodmatApp
         // Вид панели
         private void MatProdPanel_Paint(object sender, PaintEventArgs e)
         {
+            
+
             int hue = 0;
             if (material != null) // Объект - материал
             {
@@ -116,6 +118,7 @@ namespace prodmatApp
         {
             if (material != null) // Объект - материал
             {
+                parentForm.Hide();
                 FormSelectedMaterial formSelectedMaterial = new FormSelectedMaterial(material, main);
                 if (formSelectedMaterial.ShowDialog() == DialogResult.Abort)
                 {
@@ -124,10 +127,12 @@ namespace prodmatApp
                 }
                 Update();
                 UpdatePanel();
+                parentForm.Show();
             }
             else if (product != null) // Объект - продукция
             {
                 FormSelectedProduct formSelectedProduct = new FormSelectedProduct(product, main);
+                parentForm.Hide();
                 if (formSelectedProduct.ShowDialog() == DialogResult.Abort)
                 {
                     Dispose();
@@ -135,6 +140,7 @@ namespace prodmatApp
                 }
                 Update();
                 UpdatePanel();
+                parentForm.Show();
 
             }
         }
@@ -161,6 +167,8 @@ namespace prodmatApp
             else if (product != null) // Объект - продукция
             {
                 FormProductCreation formProductCreation = new FormProductCreation(product, main);
+
+                parentForm.Hide();
                 if (formProductCreation.ShowDialog() == DialogResult.OK)
                 {
                     main.AddDB(new WarehouseProduct
@@ -187,6 +195,7 @@ namespace prodmatApp
                         });
                     }
                 }
+                parentForm.Show();
             }
         }
 
@@ -196,6 +205,7 @@ namespace prodmatApp
             if (material != null) // Объект - материал
             {
                 FormUseMaterial formUseMaterial = new FormUseMaterial(material, main);
+                parentForm.Hide();
                 if (formUseMaterial.ShowDialog() == DialogResult.OK)
                 {
                     // Проверяет достаточно ли материала и спрашивает пользователю стоит продолжить если нехватает
@@ -209,10 +219,11 @@ namespace prodmatApp
                         IsCanceled = false
                     });
                 }
+                parentForm.Show();
             }
             else if (product != null) // Объект - продукция
             {
-                if (MessageBox.Show("Расходовать 1 продукцию?", "Расходование продукции", 
+                if (MessageBox.Show("Расходовать 1 продукцию?", "Расходование продукции",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
                 // Проверяет достаточно ли продукции и спрашивает пользователю стоит продолжить если нехватает
                 if (!main.ContinueProductUsage(1, product)) return;
@@ -227,6 +238,11 @@ namespace prodmatApp
                 };
                 main.AddDB(warehouseProduct);
             }
+        }
+
+        private void MatProdPanel_Load(object sender, EventArgs e)
+        {
+            parentForm = FindForm();
         }
     }
 }

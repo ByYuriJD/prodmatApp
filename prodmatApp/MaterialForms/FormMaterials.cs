@@ -18,7 +18,7 @@ namespace prodmatApp
     /// </summary>
     public partial class FormMaterials : Form
     {
-       private FormMain main;
+        private FormMain main;
 
         // Конструктор
         public FormMaterials(FormMain main)
@@ -27,18 +27,27 @@ namespace prodmatApp
             this.main = main;
             UpdatePanels();
         }
+        private void panel_VisiblilyChanged(object sender, EventArgs e)
+        {
+            if (sender is MatProdPanel)
+            {
+                MatProdPanel panel = (MatProdPanel)sender;
+                Visible = panel.Visible;
+            }
+        }
         // Обновляет показываемые материалы
         private void UpdatePanels()
         {
             // Удаляет существующие элементы
             materialsFlowPanel.Controls.Clear();
-            
+
             // Создает панель для каждого существующего материала
             foreach (Material material in main.GetMaterials())
             {
                 MatProdPanel matProdPanel = new MatProdPanel(material, main);
                 materialsFlowPanel.Controls.Add(matProdPanel);
                 matProdPanel.Disposed += UpdatePanels;
+                matProdPanel.VisibleChanged += panel_VisiblilyChanged;
             }
         }
 
@@ -81,5 +90,6 @@ namespace prodmatApp
             Show();
 
         }
+
     }
 }

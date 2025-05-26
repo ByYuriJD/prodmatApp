@@ -61,7 +61,7 @@ namespace prodmatApp
         private void buttonTemplate_Click(object sender, EventArgs e)
         {
             FormProductCreation formProductCreation = new FormProductCreation(product, main);
-
+            Hide();
             // Пользователь выбрал "Подтвердить" на форме создания продукции
             if (formProductCreation.ShowDialog() == DialogResult.OK)
             {
@@ -96,6 +96,7 @@ namespace prodmatApp
                 // Идентификатор шаблона
                 warehouseProductId = warehouseProduct.Id;
             }
+            Show();
         }
         // Проверка на правильность заполнения формы
         private void ValidateForm()

@@ -248,7 +248,9 @@
             ClientSize = new Size(437, 537);
             Controls.Add(panelFill);
             Controls.Add(panelBottom);
+            MaximizeBox = false;
             Name = "FormMain";
+            ShowIcon = false;
             Text = "Продмат";
             FormClosed += FormMain_FormClosed;
             Resize += Form1_Resize;

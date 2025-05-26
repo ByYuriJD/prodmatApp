@@ -62,6 +62,7 @@ namespace prodmatApp
             // Показывает форму редактирования матрериала с аргументом material
             FormEditMaterial formEditMaterials = new FormEditMaterial(material);
 
+            Hide();
             // Пользователь выбрал "Подтвердить"
             if (formEditMaterials.ShowDialog() == DialogResult.OK)
             {
@@ -89,13 +90,16 @@ namespace prodmatApp
                 BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .3, 1);
                 panelMain.BackColor = Color.White;
             }
+            Show();
         }
 
         // Нажатие на кнопку открытия истории
         private void buttonHistory_Click(object sender, EventArgs e)
         {
             FormMaterialHistory formMaterialHistory = new FormMaterialHistory(material, main);
+            Hide();
             formMaterialHistory.ShowDialog();
+            Show();
             UpdateAmount();
         }
 
@@ -122,6 +126,8 @@ namespace prodmatApp
         {
             FormUseMaterial formUseMaterial = new FormUseMaterial(material, main);
 
+            Hide();
+
             // Использование материала без добавления продукции
             if (formUseMaterial.ShowDialog() == DialogResult.OK)
             {
@@ -136,6 +142,7 @@ namespace prodmatApp
                     IsCanceled = false
                 });
             }
+            Show();
             UpdateAmount();
         }
 

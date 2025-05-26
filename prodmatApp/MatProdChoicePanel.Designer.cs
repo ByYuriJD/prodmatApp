@@ -36,9 +36,9 @@
             // 
             buttonChoose.Dock = DockStyle.Top;
             buttonChoose.Font = new Font("Segoe UI", 7F);
-            buttonChoose.Location = new Point(8, 8);
+            buttonChoose.Location = new Point(16, 16);
             buttonChoose.Name = "buttonChoose";
-            buttonChoose.Size = new Size(204, 34);
+            buttonChoose.Size = new Size(188, 34);
             buttonChoose.TabIndex = 2;
             buttonChoose.Text = "Выбрать";
             buttonChoose.UseVisualStyleBackColor = true;
@@ -46,10 +46,12 @@
             // 
             // labelAmount
             // 
+            labelAmount.BackColor = Color.Transparent;
             labelAmount.Dock = DockStyle.Fill;
-            labelAmount.Location = new Point(8, 42);
+            labelAmount.Font = new Font("Segoe UI", 8F);
+            labelAmount.Location = new Point(16, 50);
             labelAmount.Name = "labelAmount";
-            labelAmount.Size = new Size(204, 61);
+            labelAmount.Size = new Size(188, 45);
             labelAmount.TabIndex = 3;
             labelAmount.Text = "label1";
             labelAmount.TextAlign = ContentAlignment.TopCenter;
@@ -61,7 +63,7 @@
             Controls.Add(labelAmount);
             Controls.Add(buttonChoose);
             Name = "MatProdChoicePanel";
-            Padding = new Padding(8);
+            Padding = new Padding(16);
             Size = new Size(220, 111);
             Paint += MatProdChoicePanel_Paint;
             ResumeLayout(false);
