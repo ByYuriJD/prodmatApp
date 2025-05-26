@@ -27,6 +27,14 @@ namespace prodmatApp
             this.main = main;
             UpdatePanels();
         }
+        private void panel_VisiblilyChanged(object sender, EventArgs e)
+        {
+            if (sender is MatProdPanel)
+            {
+                MatProdPanel panel = (MatProdPanel)sender;
+                Visible = panel.Visible;
+            }
+        }
         // Обновляет показываемые материалы
         private void UpdatePanels()
         {
@@ -39,6 +47,7 @@ namespace prodmatApp
                 MatProdPanel matProdPanel = new MatProdPanel(material, main);
                 materialsFlowPanel.Controls.Add(matProdPanel);
                 matProdPanel.Disposed += UpdatePanels;
+                matProdPanel.VisibleChanged += panel_VisiblilyChanged;
             }
         }
 

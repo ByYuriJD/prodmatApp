@@ -63,6 +63,7 @@ namespace prodmatApp
             // Показывает форму редактирования матрериала с аргументом product
             FormEditProduct formEditProduct = new FormEditProduct(main, product);
 
+            Hide();
             // Пользователь выбрал "Подтвердить"
             if (formEditProduct.ShowDialog() == DialogResult.OK)
             {
@@ -88,13 +89,16 @@ namespace prodmatApp
                 BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .3, 1);
                 panelMain.BackColor = Color.White;
             }
+            Show();
         }
 
         // Нажатие на кнопку открытия истории
         private void buttonHistory_Click(object sender, EventArgs e)
         {
             FormProductHistory formProductHistory = new FormProductHistory(product, main);
+            Hide();
             formProductHistory.ShowDialog();
+            Show();
             UpdateAmount();
         }
 
@@ -103,6 +107,7 @@ namespace prodmatApp
         {
             FormProductCreation formProductCreation = new FormProductCreation(product, main);
 
+            Hide();
             // Пользователь выбрал "Подтвердить" на форме создания продукции
             if (formProductCreation.ShowDialog() == DialogResult.OK)
             {
@@ -144,6 +149,7 @@ namespace prodmatApp
                 }
                 UpdateAmount();
             }
+            Show();
         }
 
         // Нажатие на кнопку расходования материала

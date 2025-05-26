@@ -113,7 +113,9 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            MaximizeBox = false;
             Name = "FormProductHistory";
+            ShowIcon = false;
             Text = "История количества продукции";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);

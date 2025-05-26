@@ -197,7 +197,9 @@
             Controls.Add(panelAmount);
             Controls.Add(panelBottom);
             Controls.Add(panelName);
+            MaximizeBox = false;
             Name = "FormWarehouseProduct";
+            ShowIcon = false;
             Text = "Данные о создании";
             panelName.ResumeLayout(false);
             panelBottom.ResumeLayout(false);

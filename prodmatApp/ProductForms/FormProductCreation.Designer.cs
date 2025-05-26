@@ -36,6 +36,7 @@
             buttonBack = new Button();
             panelAdd = new Panel();
             buttonAdd = new Button();
+            buttonRemoveAll = new Button();
             tableLayoutPanel = new TableLayoutPanel();
             panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown).BeginInit();
@@ -111,23 +112,35 @@
             // panelAdd
             // 
             panelAdd.Controls.Add(buttonAdd);
+            panelAdd.Controls.Add(buttonRemoveAll);
             panelAdd.Dock = DockStyle.Bottom;
-            panelAdd.Location = new Point(0, 331);
+            panelAdd.Location = new Point(0, 337);
             panelAdd.Name = "panelAdd";
-            panelAdd.Padding = new Padding(16, 8, 16, 8);
-            panelAdd.Size = new Size(399, 61);
+            panelAdd.Padding = new Padding(16, 8, 16, 0);
+            panelAdd.Size = new Size(399, 55);
             panelAdd.TabIndex = 2;
             // 
             // buttonAdd
             // 
             buttonAdd.Dock = DockStyle.Fill;
-            buttonAdd.Location = new Point(16, 8);
+            buttonAdd.Location = new Point(143, 8);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(367, 45);
-            buttonAdd.TabIndex = 0;
+            buttonAdd.Size = new Size(240, 47);
+            buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить материал";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += buttonAdd_Click;
+            // 
+            // buttonRemoveAll
+            // 
+            buttonRemoveAll.Dock = DockStyle.Left;
+            buttonRemoveAll.Location = new Point(16, 8);
+            buttonRemoveAll.Name = "buttonRemoveAll";
+            buttonRemoveAll.Size = new Size(127, 47);
+            buttonRemoveAll.TabIndex = 0;
+            buttonRemoveAll.Text = "Исключить все";
+            buttonRemoveAll.UseVisualStyleBackColor = true;
+            buttonRemoveAll.Click += buttonRemoveAll_Click;
             // 
             // tableLayoutPanel
             // 
@@ -140,7 +153,7 @@
             tableLayoutPanel.Padding = new Padding(8);
             tableLayoutPanel.RowCount = 1;
             tableLayoutPanel.RowStyles.Add(new RowStyle());
-            tableLayoutPanel.Size = new Size(399, 288);
+            tableLayoutPanel.Size = new Size(399, 294);
             tableLayoutPanel.TabIndex = 4;
             // 
             // FormProductCreation
@@ -173,7 +186,8 @@
         private Button buttonBack;
         private Panel panelAdd;
         private TableLayoutPanel tableLayoutPanel;
-        private Button buttonAdd;
         public NumericUpDown numericUpDown;
+        private Button buttonRemoveAll;
+        private Button buttonAdd;
     }
 }

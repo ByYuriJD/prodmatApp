@@ -116,6 +116,7 @@
             MaximizeBox = false;
             MinimumSize = new Size(425, 500);
             Name = "FormMaterialHistory";
+            ShowIcon = false;
             Text = "История количества материала";
             panelTop.ResumeLayout(false);
             panelBottom.ResumeLayout(false);

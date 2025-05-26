@@ -57,6 +57,7 @@
             // 
             // tableLayoutPanel
             // 
+            tableLayoutPanel.AutoScroll = true;
             tableLayoutPanel.ColumnCount = 1;
             tableLayoutPanel.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel.Dock = DockStyle.Fill;
@@ -75,8 +76,10 @@
             ClientSize = new Size(417, 379);
             Controls.Add(tableLayoutPanel);
             Controls.Add(panel1);
+            MaximizeBox = false;
             MinimumSize = new Size(320, 120);
             Name = "FormReport";
+            ShowIcon = false;
             Text = "Отчет";
             panel1.ResumeLayout(false);
             ResumeLayout(false);

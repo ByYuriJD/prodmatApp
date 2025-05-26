@@ -28,7 +28,7 @@ namespace prodmatApp.ProductForms
             WarehouseProduct template = product.IdTemplateNavigation;
             materials = new List<ProductCreationMaterialPanel>();
             labelProductName.Text = product.NameOfProduct;
-            
+
             // На используется material
             if (material == null)
             {
@@ -82,11 +82,24 @@ namespace prodmatApp.ProductForms
             {
                 if (formChoice.chosenMaterial != null)
                 {
-                    ProductCreationMaterialPanel materialPanel = new ProductCreationMaterialPanel(this,formChoice.chosenMaterial);
+                    ProductCreationMaterialPanel materialPanel = new ProductCreationMaterialPanel(this, formChoice.chosenMaterial);
                     tableLayoutPanel.Controls.Add(materialPanel);
                     materials.Add(materialPanel);
                     materialPanel.Dock = DockStyle.Top;
                 }
+            }
+        }
+
+        private void buttonRemoveAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Исключить все материалы?",
+                "Исключение материалов", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            List<ProductCreationMaterialPanel> materialPanels = materials.ToList();
+            foreach (ProductCreationMaterialPanel materialPanel in materialPanels)
+            {
+                materials.Remove(materialPanel);
+                tableLayoutPanel.Controls.Remove(materialPanel);
+                materialPanel.Dispose();
             }
         }
     }

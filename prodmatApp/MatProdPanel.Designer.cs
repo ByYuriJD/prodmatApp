@@ -104,6 +104,7 @@
             Name = "MatProdPanel";
             Padding = new Padding(16, 16, 16, 8);
             Size = new Size(220, 112);
+            Load += MatProdPanel_Load;
             Paint += MatProdPanel_Paint;
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
