@@ -182,7 +182,7 @@
             tableLayoutPanel.Location = new Point(0, 114);
             tableLayoutPanel.Name = "tableLayoutPanel";
             tableLayoutPanel.RowCount = 1;
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle());
             tableLayoutPanel.Size = new Size(356, 190);
             tableLayoutPanel.TabIndex = 4;
             // 
