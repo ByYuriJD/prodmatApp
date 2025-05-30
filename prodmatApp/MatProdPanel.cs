@@ -40,15 +40,18 @@ namespace prodmatApp
                 product = (Product)prodMat;
             }
             UpdatePanel();
+
         }
 
         private void UpdatePanel()
         {
+
+            int hue = 0;
             if (material != null)
             {
+                hue = material.Hue;
+
                 buttonName.Text = material.NameOfMaterial;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
                 if (main.getAmount(material) < 0)
                 {
                     errorProvider.SetError(buttonName, "Отрицательное количество материала");
@@ -60,9 +63,8 @@ namespace prodmatApp
             }
             else if (product != null)
             {
+                hue = product.Hue;
                 buttonName.Text = product.NameOfProduct;
-                buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
-                buttonUse.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 if (main.getAmount(product) < 0)
                 {
                     errorProvider.SetError(buttonName, "Отрицательное количество продукции");
@@ -72,6 +74,10 @@ namespace prodmatApp
                     errorProvider.Clear();
                 }
             }
+            panelBack.BackColor = ColourFromHSV.ColorFromHSV(hue, .2, 1);
+            panelBorder.BackColor = ColourFromHSV.ColorFromHSV(hue, .5, 1);
+            buttonAdd.BackColor = ColourFromHSV.ColorFromHSV(hue, .1, 1);
+            buttonUse.BackColor = ColourFromHSV.ColorFromHSV(hue, .1, 1);
 
             if (TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width > 176 &&
                 TextRenderer.MeasureText(buttonName.Text, buttonName.Font).Width < 191)
@@ -87,31 +93,6 @@ namespace prodmatApp
                 buttonName.Font = new Font("Segoe UI", 6);
             }
         }
-        // Вид панели
-        private void MatProdPanel_Paint(object sender, PaintEventArgs e)
-        {
-            
-
-            int hue = 0;
-            if (material != null) // Объект - материал
-            {
-                hue = material.Hue;
-            }
-            else if (product != null) // Объект - продукция
-            {
-                hue = product.Hue;
-            }
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.FillRoundedRectangle(new SolidBrush(ColourFromHSV.ColorFromHSV(hue, .5, 1)),
-                0, 0, Width, Height, 40);
-
-            g.FillRoundedRectangle(new LinearGradientBrush(new PointF(0, 0), new PointF(0, Height),
-                Color.White, ColourFromHSV.ColorFromHSV(hue, .2, 1)),
-                2, 2, this.Width - 4, this.Height - 4, 40);
-            g.Dispose();
-        }
-
 
         // Нажатие на кнопку с названием
         private void buttonName_Click(object sender, EventArgs e)
@@ -244,5 +225,6 @@ namespace prodmatApp
         {
             parentForm = FindForm();
         }
+
     }
 }

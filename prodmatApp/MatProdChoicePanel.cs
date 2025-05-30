@@ -26,9 +26,13 @@ namespace prodmatApp
             InitializeComponent();
             this.formChoice = formChoice;
 
+            int hue = 0;
+
             if (prodMat is Material) // Объект - материал
             {
                 material = (Material)prodMat;
+
+                hue = material.Hue;
                 buttonChoose.Text = material.NameOfMaterial;
                 buttonChoose.BackColor = ColourFromHSV.ColorFromHSV(material.Hue, .1, 1);
                 labelAmount.Text = main.getAmount(material).ToString();
@@ -36,10 +40,14 @@ namespace prodmatApp
             else if (prodMat is Product) // Объект - продукция
             {
                 product = (Product)prodMat;
+
+                hue = product.Hue;
                 buttonChoose.Text = product.NameOfProduct;
-                buttonChoose.BackColor = ColourFromHSV.ColorFromHSV(product.Hue, .1, 1);
                 labelAmount.Text = main.getAmount(product).ToString();
             }
+            panelBack.BackColor = ColourFromHSV.ColorFromHSV(hue, .2, 1);
+            panelBorder.BackColor = ColourFromHSV.ColorFromHSV(hue, .5, 1);
+            buttonChoose.BackColor = ColourFromHSV.ColorFromHSV(hue, .1, 1);
             if (TextRenderer.MeasureText(buttonChoose.Text, buttonChoose.Font).Width > 176 &&
                 TextRenderer.MeasureText(buttonChoose.Text, buttonChoose.Font).Width < 191)
             {
@@ -53,29 +61,6 @@ namespace prodmatApp
             {
                 buttonChoose.Font = new Font("Segoe UI", 6);
             }
-        }
-
-        // Вид панели
-        private void MatProdChoicePanel_Paint(object sender, PaintEventArgs e)
-        {
-            int hue = 0;
-            if (material != null) // Объект - материал
-            {
-                hue = material.Hue;
-            }
-            else if (product != null) // Объект - продукция
-            {
-                hue = product.Hue;
-            }
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.FillRoundedRectangle(new SolidBrush(ColourFromHSV.ColorFromHSV(hue, .5, 1)),
-                0, 0, Width, Height, 40);
-
-            g.FillRoundedRectangle(new LinearGradientBrush(new PointF(0, 0), new PointF(0, Height),
-                Color.White, ColourFromHSV.ColorFromHSV(hue, .2, 1)),
-                2, 2, this.Width - 4, this.Height - 4, 40);
-            g.Dispose();
         }
 
         // Нажатие на кнопку с названием

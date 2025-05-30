@@ -29,26 +29,43 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            buttonName = new Button();
+            errorProvider = new ErrorProvider(components);
+            panelBorder = new Panel();
+            panelBack = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             buttonUse = new Button();
             buttonAdd = new Button();
-            errorProvider = new ErrorProvider(components);
-            tableLayoutPanel1.SuspendLayout();
+            buttonName = new Button();
             ((System.ComponentModel.ISupportInitialize)errorProvider).BeginInit();
+            panelBorder.SuspendLayout();
+            panelBack.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // buttonName
+            // errorProvider
             // 
-            buttonName.Dock = DockStyle.Top;
-            buttonName.Font = new Font("Segoe UI", 9F);
-            buttonName.Location = new Point(16, 16);
-            buttonName.Name = "buttonName";
-            buttonName.Size = new Size(188, 35);
-            buttonName.TabIndex = 2;
-            buttonName.Text = "button1";
-            buttonName.UseVisualStyleBackColor = true;
-            buttonName.Click += buttonName_Click;
+            errorProvider.ContainerControl = this;
+            // 
+            // panelBorder
+            // 
+            panelBorder.Controls.Add(panelBack);
+            panelBorder.Dock = DockStyle.Fill;
+            panelBorder.Location = new Point(4, 4);
+            panelBorder.Name = "panelBorder";
+            panelBorder.Padding = new Padding(2);
+            panelBorder.Size = new Size(212, 104);
+            panelBorder.TabIndex = 0;
+            // 
+            // panelBack
+            // 
+            panelBack.Controls.Add(tableLayoutPanel1);
+            panelBack.Controls.Add(buttonName);
+            panelBack.Dock = DockStyle.Fill;
+            panelBack.Location = new Point(2, 2);
+            panelBack.Name = "panelBack";
+            panelBack.Padding = new Padding(8);
+            panelBack.Size = new Size(208, 100);
+            panelBack.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
@@ -58,21 +75,21 @@
             tableLayoutPanel1.Controls.Add(buttonUse, 1, 0);
             tableLayoutPanel1.Controls.Add(buttonAdd, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(16, 51);
+            tableLayoutPanel1.Location = new Point(8, 43);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(12, 6, 12, 2);
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(188, 53);
-            tableLayoutPanel1.TabIndex = 3;
+            tableLayoutPanel1.Size = new Size(192, 49);
+            tableLayoutPanel1.TabIndex = 5;
             // 
             // buttonUse
             // 
             buttonUse.Dock = DockStyle.Fill;
             buttonUse.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            buttonUse.Location = new Point(97, 9);
+            buttonUse.Location = new Point(99, 9);
             buttonUse.Name = "buttonUse";
-            buttonUse.Size = new Size(76, 39);
+            buttonUse.Size = new Size(78, 35);
             buttonUse.TabIndex = 1;
             buttonUse.Text = "-";
             buttonUse.UseVisualStyleBackColor = true;
@@ -84,39 +101,48 @@
             buttonAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             buttonAdd.Location = new Point(15, 9);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(76, 39);
+            buttonAdd.Size = new Size(78, 35);
             buttonAdd.TabIndex = 0;
             buttonAdd.Text = "+";
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += buttonAdd_Click;
             // 
-            // errorProvider
+            // buttonName
             // 
-            errorProvider.ContainerControl = this;
+            buttonName.Dock = DockStyle.Top;
+            buttonName.Font = new Font("Segoe UI", 9F);
+            buttonName.Location = new Point(8, 8);
+            buttonName.Name = "buttonName";
+            buttonName.Size = new Size(192, 35);
+            buttonName.TabIndex = 4;
+            buttonName.Text = "button1";
+            buttonName.UseVisualStyleBackColor = true;
+            buttonName.Click += buttonName_Click;
             // 
             // MatProdPanel
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
-            Controls.Add(tableLayoutPanel1);
-            Controls.Add(buttonName);
+            Controls.Add(panelBorder);
             Name = "MatProdPanel";
-            Padding = new Padding(16, 16, 16, 8);
+            Padding = new Padding(4);
             Size = new Size(220, 112);
             Load += MatProdPanel_Load;
-            Paint += MatProdPanel_Paint;
-            tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)errorProvider).EndInit();
+            panelBorder.ResumeLayout(false);
+            panelBack.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button buttonName;
+        private ErrorProvider errorProvider;
+        private Panel panelBorder;
+        private Panel panelBack;
         private TableLayoutPanel tableLayoutPanel1;
         private Button buttonUse;
         private Button buttonAdd;
-        private ErrorProvider errorProvider;
+        private Button buttonName;
     }
 }
